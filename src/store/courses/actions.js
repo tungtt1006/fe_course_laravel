@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 export default {
-    getCourselist({ commit }, categoryId) {
+    getCourselist({ commit }, filter) {
         axios
-          .get('http://localhost/course_laravel/public/api/products/' + categoryId)
-          .then(response => { commit('SET_COURSELIST', response.data) });
+            .get('http://localhost/course_laravel/public/api/products/' + filter.parent_id + '?name=' + filter.name + '&order=' + filter.order)
+            .then(response => { commit('SET_COURSELIST', response.data) });
     }
 }

@@ -1,7 +1,7 @@
 <template>
-<div class="row text-center mt-4">
+<div class="row text-center mt-2">
     <h1 class="mb-0">{{ item.name }}</h1>
-    <span class="mb-3">
+    <span class="mb-0">
         <router-link class="seemore-text" 
           :to="{ name: 'category', params: { id: item.id } }">
             See more 
@@ -21,7 +21,6 @@
 <script>
 import CourseItem from '@/components/CourseItem.vue'
 import axios from 'axios'
-
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 

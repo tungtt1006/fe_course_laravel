@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-3 mt-3">
+    <div class="col-md-3 mt-2">
         <div class="card">
             <img src="@/assets/images/htmlcss.png" class="card-img-top" alt="...">
             <div class="card-body">
