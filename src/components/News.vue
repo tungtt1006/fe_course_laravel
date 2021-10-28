@@ -1,6 +1,6 @@
 <template>
 <div 
-    class="row mt-5"
+    class="row mt-5 py-5"
     style="padding-left: 80px;"
 >
     <div class="col-md-11">
@@ -24,16 +24,28 @@
                 </div>
             </div>
         </div>
+        
     </div>
+    <router-link class="seemore-text text-center" 
+        :to="{ name: 'news' }">
+        More news here
+        <font-awesome-icon :icon="arrowRight" size="xs" font-weight="500" />
+    </router-link>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export default {
+    components: {
+        FontAwesomeIcon
+    },
     data() {
         return {
+            arrowRight: faArrowRight,
             newList: []
         }
     },
@@ -53,5 +65,14 @@ export default {
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+.seemore-text {
+    font-size: 22px;
+    color: black;
+    text-decoration: none;
+}
+.seemore-text:hover {
+    text-decoration: underline;
+    color:black;
 }
 </style>

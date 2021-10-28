@@ -16,6 +16,18 @@ export default new Router({
             name: 'category',
             component: () =>
                 import(/* webpackChunkName: "category" */ "../views/Category.vue")
-        }
+        },
+        {
+            path: '/news',
+            name: 'news',
+            component: () =>
+                import(/* webpackChunkName: "news" */ "../views/News.vue")
+        },
+        {
+            path: '/detailcourse/:id',
+            name: 'detailcourse',
+            component: () =>
+                import(/* webpackChunkName: "detailcourse" */ "../views/DetailCourse.vue")
+        },
     ]
 })

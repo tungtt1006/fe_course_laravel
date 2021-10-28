@@ -2,8 +2,10 @@
 <div class="row text-center mt-2">
     <h1 class="mb-0">{{ item.name }}</h1>
     <span class="mb-0">
-        <router-link class="seemore-text" 
-          :to="{ name: 'category', params: { id: item.id } }">
+        <router-link 
+            class="seemore-text" 
+            :to="{ name: 'category', params: { id: item.id, name: item.name } }"
+        >
             See more 
             <font-awesome-icon :icon="arrowRight" size="xs" font-weight="500" />
         </router-link>

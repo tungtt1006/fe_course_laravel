@@ -10,8 +10,16 @@
                 <p class="mt-0 mb-3 card-text discount-price-text">
                     {{ new Intl.NumberFormat().format(item.price) }} VND
                 </p>
-                <button type="button" class="btn btn-detail">Detail</button>&ensp;
-                <button type="button" class="btn btn-outline-success">Register</button>
+                <router-link 
+                    type="button" 
+                    class="btn btn-detail"
+                    :to="{ name: 'detailcourse', params: { id: item.id, detailCourse: item } }"
+                >
+                    Detail
+                </router-link>
+                <button type="button" class="btn ms-4 btn-outline-success">
+                    Register
+                </button>
             </div>
         </div>
     </div>

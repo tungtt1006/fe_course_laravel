@@ -1,7 +1,7 @@
 <template>
 <div class="pb-3">
     <div class="row">
-        <h1 class="mt-2 text-center fw-normal">{{ category.name }}</h1>
+        <h1 class="mt-2 text-center fw-normal">{{ $route.params.name }}</h1>
         <!-- <div class="col-md-3" style="over-flow:hidden">
             <span style="font-size: 10px;">{{ category.description }}</span>
         </div> -->
@@ -70,19 +70,17 @@
             <div class="card">
                 <img src="@/assets/images/htmlcss.png" class="card-img-top" alt="...">
                 <router-link 
-                    class="card-body" 
-                    :to="{ name: 'category', params: { id: item.id } }"
+                    class="card-body card__category_title" 
+                    :to="{ name: 'category', params: { id: item.id, name: item.name } }"
                 >
-                <!-- <div class="card-body"> -->
                     <div class="row">
                         <div class="col-md-10">
-                            <span class="card-title card__category_title">{{ item.name }}</span>
+                            <span class="card-title">{{ item.name }}</span>
                         </div>
                         <div class="col-md-2">
-                            <font-awesome-icon :icon="arrowRight" size="lg" font-weight="200" />
+                            <font-awesome-icon :icon="arrowRight" size="lg" font-weight="100" />
                         </div>      
                     </div>
-                <!-- </div> -->
                 </router-link>
             </div>
         </div>
@@ -138,12 +136,15 @@ export default {
             order: 'asc',
         }
         this.getCourselist(filter);
-        axios
-            .get('http://localhost/course_laravel/public/api/categories?exceptId=' + this.$route.params.id)
-            .then(response => { this.category = response.data });
-        },
+        this.getAnotherCategory(this.$route.params.id);
+    },
     methods: {
         ...mapActions(['getCourselist']),
+        getAnotherCategory(id) {
+            axios
+               .get('http://localhost/course_laravel/public/api/categories?exceptId=' + id)
+               .then(response => { this.category = response.data });
+        },
         sortCourse(x, y) {
             let filter = {
                 parent_id: this.$route.params.id,
@@ -155,6 +156,17 @@ export default {
     },
     computed: {
         ...mapGetters(['courseList'])
+    },
+    watch: {
+        '$route.params.id'(val) {
+            let filter = {
+                parent_id: val,
+                name: 'id',
+                order: 'asc',
+            }
+            this.getCourselist(filter);
+            this.getAnotherCategory(val);
+        }
     }
 }
 </script>
@@ -171,8 +183,8 @@ export default {
     border: 1px solid #00c292;
 }
 .card__category_title {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
     color: black;
     text-decoration: none;
 }
