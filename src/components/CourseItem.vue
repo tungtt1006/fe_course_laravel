@@ -36,7 +36,7 @@ export default {
 }
 </script>
     
-<style>
+<style scoped>
 .btn-detail {
     background-color: #00c292;
     color: white;
