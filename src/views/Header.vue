@@ -2,7 +2,7 @@
 <div>
     <nav class="navbar navbar-expand-lg header">
         <div class="container-fluid">
-            <router-link class="navbar-brand nav_brand" to="/">Team13</router-link>
+            <router-link class="navbar-brand nav_brand" to="/">KOURSES</router-link>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">

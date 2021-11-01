@@ -38,9 +38,9 @@ export default {
         FontAwesomeIcon
     },
     data() {
-      return {
-          arrowRight: faArrowRight,
-          courseList: []
+        return {
+            arrowRight: faArrowRight,
+            courseList: []
       }
     },
     mounted() {

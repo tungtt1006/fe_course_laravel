@@ -2,13 +2,14 @@
     <div class="container-fluid pt-4">
         <div class="row">
             <div class="col-md-8">
-                <h1>{{ $route.params.detailCourse.name }}</h1>
-                <div 
-                    style="width: 90%;word-wrap:break-word;"
-                >
+                <h1>
+                    {{ $route.params.detailCourse.name }} 
+                </h1>
+                <div style="width: 90%;word-wrap:break-word;">
                     {{ $route.params.detailCourse.description }}
                 </div>
-                <h3 class="mt-4">What will you achieve</h3>
+                <div style="width: 100%;" v-html="$route.params.detailCourse.content">
+                </div>
             </div>
             <div class="col-md-4 text-center">
                 <img 
@@ -28,11 +29,12 @@
                 <btn type="button" class="btn px-5 mt-3 btn__register">
                     Register
                 </btn>
-                <ul style="background-color: blue;list-style-type: none;" class="text-start">
-                    <li>Level: Basic</li>
-                    <li>Time: Monday & Friday Night</li>
-                    <li>Hello</li>
-                    <li>Hello</li>
+                <ul style="list-style-type: none;" class="text-start ms-5 mt-4 fs-5">
+                    <li> Level: <span class="fw-bolder">Basic</span>
+                    </li>
+                    <li>Days: <span class="fw-bolder">2 & 4 & 6</span></li>
+                    <li>Time: <span class="fw-bolder">6 p.m</span></li>
+                    <li>Teacher: <span class="fw-bolder">Nam</span></li>
                 </ul>
             </div>
         </div>
@@ -40,13 +42,17 @@
 </template>
       
 <script>
-// import axios from 'axios'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export default {
-  data() {
-      return {
-          
-      }
+    components: {
+        // FontAwesomeIcon
+    },
+    data() {
+        return {
+            // check: faCheck,
+        }
     },
     mounted() {
         
