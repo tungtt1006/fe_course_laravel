@@ -1,6 +1,6 @@
 <template>
 <div class="row text-center mt-2">
-    <h1 class="mb-0">{{ item.name }}</h1>
+    <h1 class="mb-0 p-0 fw-normal">{{ item.name }}</h1>
     <span class="mb-0">
         <router-link 
             class="seemore-text" 

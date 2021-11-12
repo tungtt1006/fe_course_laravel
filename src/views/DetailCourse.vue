@@ -29,12 +29,15 @@
                 <btn type="button" class="btn px-5 mt-3 btn__register">
                     Register
                 </btn>
-                <ul style="list-style-type: none;" class="text-start ms-5 mt-4 fs-5">
-                    <li> Level: <span class="fw-bolder">Basic</span>
+                <ul 
+                    style="list-style-type: none;font-size: 20px;margin-left: 65px;" 
+                    class="text-start mt-4"
+                >
+                    <li> Level: <span class="fw-normal">Basic</span>
                     </li>
-                    <li>Days: <span class="fw-bolder">2 & 4 & 6</span></li>
-                    <li>Time: <span class="fw-bolder">6 p.m</span></li>
-                    <li>Teacher: <span class="fw-bolder">Nam</span></li>
+                    <li>Days: <span class="fw-normal">2 & 4 & 6</span></li>
+                    <li>Time: <span class="fw-normal">6 p.m</span></li>
+                    <li>Teacher: <span class="fw-normal">Nam</span></li>
                 </ul>
             </div>
         </div>
