@@ -64,6 +64,9 @@ export default {
 </script>
       
 <style scoped>
+.table td h4 {
+    font-size: 10px !important;
+}
 .btn__register {
     background-color: #00c292;
     color: white;

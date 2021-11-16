@@ -31,6 +31,19 @@
                     </li>
                 </ul>
             </div>
+            <div v-if="username != ''">
+                <span style="font-size: 20px;color:white;font-weight: 300;">Hi, <b>{{ username }}</b> /</span> 
+                <span 
+                    style="font-size: 20px;color:white;font-weight: 300;cursor: default;"
+                    @click="setUser('')"
+                > 
+                    Logout
+                </span>
+            </div>
+            <div v-else class="pe-3" style="color:white">
+                <router-link class="sign_in" to="/login">Sign in</router-link> /
+                <router-link class="sign_up" to="/register">Sign up</router-link>    
+            </div>
         </div>
     </nav>    
 </div>
@@ -44,19 +57,27 @@ export default {
       this.getCategorylist();
   },
   methods: {
-      ...mapActions(['getCategorylist'])
+      ...mapActions(['getCategorylist', 'setUser'])
   },
   computed: {
-      ...mapGetters(['categoryList'])
+      ...mapGetters(['categoryList', 'username'])
   }
 }
 </script>
 
-<style>
+<style scoped>
 .header {
     background-color: #00c292;
 }
 .nav_brand, .nav_item {
     color: white !important;
+}
+.sign_in, .sign_up {
+    color: white;
+    text-decoration: none;
+}
+.sign_in:hover, .sign_up:hover {
+    color: white;
+    text-decoration: underline;
 }
 </style>
