@@ -13,7 +13,10 @@
                 <router-link 
                     type="button" 
                     class="btn btn-detail"
-                    :to="{ name: 'detailcourse', params: { id: item.id, detailCourse: item } }"
+                    :to="{ 
+                        name: 'detailcourse', 
+                        params: { id: item.id } 
+                    }"
                 >
                     Detail
                 </router-link>

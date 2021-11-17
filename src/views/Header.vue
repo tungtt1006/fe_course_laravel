@@ -31,11 +31,11 @@
                     </li>
                 </ul>
             </div>
-            <div v-if="username != ''">
-                <span style="font-size: 20px;color:white;font-weight: 300;">Hi, <b>{{ username }}</b> /</span> 
+            <div v-if="Object.keys(user).length != 0">
+                <span style="font-size: 20px;color:white;font-weight: 300;">Hi, <b>{{ user.username }}</b> /</span> 
                 <span 
                     style="font-size: 20px;color:white;font-weight: 300;cursor: default;"
-                    @click="setUser('')"
+                    @click="setUser({})"
                 > 
                     Logout
                 </span>
@@ -60,7 +60,7 @@ export default {
       ...mapActions(['getCategorylist', 'setUser'])
   },
   computed: {
-      ...mapGetters(['categoryList', 'username'])
+      ...mapGetters(['categoryList', 'user'])
   }
 }
 </script>

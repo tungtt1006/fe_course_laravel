@@ -14,6 +14,10 @@
               <label class="form-label">Email</label>
               <input type="email" class="form-control" v-model="email">
             </div>
+            <div class="col-md-2">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" v-model="name">
+            </div>
             <div class="col-md-6">
                 <label class="form-label">Username</label>
                 <input type="text" class="form-control" v-model="username">
@@ -43,7 +47,7 @@
                 </select>
             </div>
             <div class="col-12">
-                <button type="button" class="btn btn-primary" @click="signUp()">Sign up</button>
+                <button type="button" class="btn btn_register" @click="signUp()">Sign up</button>
             </div>
         </div>
     </div>
@@ -57,6 +61,7 @@ export default {
     data() {
         return {
             email: '',
+            name: '',
             username: '',
             password: '',
             rePassword: '',
@@ -73,6 +78,7 @@ export default {
             if(this.password === this.rePassword) {
                 axios
                 .post("http://localhost/course_laravel/public/api/register", {
+                    name: this.name,
                     username: this.username,
                     email: this.email,
                     phonenumber: this.phoneNumber,
@@ -85,6 +91,11 @@ export default {
                     if(this.res.status == "200") {
                         this.isSuccess = true;
                         this.setUser(this.username);
+                        if(Object.keys(this.$route.params).length == 0) {
+                            this.$router.push('/');
+                        } else {
+                            this.$router.push(this.$route.params.moveTo);
+                        }
                     }
                 });
             } else {
@@ -97,7 +108,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.btn_register {
+    background-color: #00c292;
+    color: white;
+    padding: 5px 35px;
+}
 </style>
   

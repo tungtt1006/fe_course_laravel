@@ -2,13 +2,16 @@
     <div class="container-fluid pt-4">
         <div class="row">
             <div class="col-md-8">
+                <div class="alert alert-success" role="alert" v-show="isSuccess">
+                    Register Successfully - HELLO !!!!
+                </div>
                 <h1>
-                    {{ $route.params.detailCourse.name }} 
+                    {{ course.name }} 
                 </h1>
                 <div style="width: 90%;word-wrap:break-word;">
-                    {{ $route.params.detailCourse.description }}
+                    {{ course.description }}
                 </div>
-                <div style="width: 100%;" v-html="$route.params.detailCourse.content">
+                <div style="width: 100%;" v-html="course.content">
                 </div>
             </div>
             <div class="col-md-4 text-center">
@@ -18,17 +21,32 @@
                     alt="Ảnh detail course"
                 >
                 <span class="fs-3 fw-normal">
-                    {{ new Intl.NumberFormat().format($route.params.detailCourse.price) }} VND
+                    {{ new Intl.NumberFormat().format(course.price) }} VND
                 </span>
                 <span
                     class="fs-5 fw-light"
                     style="color: darkgray;text-decoration: line-through;"
                 >
-                    {{ new Intl.NumberFormat().format($route.params.detailCourse.price) }} VND
+                    {{ new Intl.NumberFormat().format(course.price) }} VND
                 </span>
-                <btn type="button" class="btn px-5 mt-3 btn__register">
+                <btn 
+                    v-if="Object.keys(user).length != 0" 
+                    type="button" 
+                    class="btn px-5 mt-3 btn__register"
+                    @click="registerCourse()"
+                >
                     Register
                 </btn>
+                <router-link 
+                    v-else 
+                    class="btn px-5 mt-3 btn__register" 
+                    :to="{ 
+                        name: 'login', 
+                        params: { moveTo: '/detailcourse/' + $route.params.id } 
+                    }"
+                >
+                    Sign in
+                </router-link>  
                 <ul 
                     style="list-style-type: none;font-size: 20px;margin-left: 65px;" 
                     class="text-start mt-4"
@@ -47,6 +65,9 @@
 <script>
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
@@ -55,11 +76,32 @@ export default {
     data() {
         return {
             // check: faCheck,
+            course: {},
+            isSuccess: false,
         }
     },
     mounted() {
-        
+        axios
+          .get('http://localhost/course_laravel/public/api/product/' + this.$route.params.id)
+          .then(response => { this.course = response.data });
     },
+    computed: {
+        ...mapGetters(['user'])
+    },
+    methods: {
+        registerCourse() {
+            axios
+              .post('http://localhost/course_laravel/public/api/order/store', {
+                product_id: this.course.id,
+                customer_id: this.user.id,
+                discount_id: "1",
+                price: this.course.price
+              })
+              .then(response => { 
+                  this.isSuccess = response.data 
+               });
+        }
+    }
 }
 </script>
       

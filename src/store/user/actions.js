@@ -1,5 +1,9 @@
 export default {
     setUser({ commit }, x) {
-        commit('SET_USER', x);
+        if(Object.keys(x).length == 0) {
+            commit('SET_USER', {});   
+        } else {
+            commit('SET_USER', x);
+        }
     }
 }
