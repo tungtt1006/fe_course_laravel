@@ -13,7 +13,7 @@
                 >
                     <img 
                         :src="require('@/assets/images/' + item.photo)" 
-                        style="height: 450px;" 
+                        style="height: 420px;" 
                         class="d-block w-100" 
                         alt="Lỗi ảnh banner"
                     >
