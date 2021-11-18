@@ -20,8 +20,11 @@
                     class="img-fluid mb-3" 
                     alt="Ảnh detail course"
                 >
-                <span class="fs-3 fw-normal">
+                <span class="fs-3 fw-normal" v-if="isShow">
                     {{ new Intl.NumberFormat().format(course.price * (100-course.discount) /100) }} VND
+                </span>
+                <span class="fs-3 fw-normal" v-else>
+                    {{ new Intl.NumberFormat().format(newPrice) }} VND
                 </span>
                 <span
                     class="fs-5 fw-light"
@@ -29,14 +32,30 @@
                 >
                     {{ new Intl.NumberFormat().format(course.price) }} VND
                 </span>
-                <btn 
-                    v-if="Object.keys(user).length != 0" 
-                    type="button" 
-                    class="btn px-5 mt-3 btn__register"
-                    @click="registerCourse()"
-                >
-                    Register
-                </btn>
+                <template v-if="Object.keys(user).length != 0" >
+                    <btn 
+                        type="button" 
+                        class="btn px-5 mt-3 btn__register"
+                        @click="registerCourse()"
+                    >
+                        Register
+                    </btn>
+                    <div class="row mt-3">
+                        <div class="col-md-9 p-0">
+                            <input 
+                                type="text" 
+                                class="form-control"  
+                                :placeholder="placeholder"
+                                v-model="code"
+                            >
+                        </div>
+                        <div class="col-md-3 p-0">
+                            <button type="button" class="btn btn-outline-success" @click="sendCode()">
+                                <font-awesome-icon :icon="tags" font-weight="500" />
+                            </button>
+                        </div>
+                    </div>
+                </template>
                 <router-link 
                     v-else 
                     class="btn px-5 mt-3 btn__register" 
@@ -63,21 +82,26 @@
 </template>
       
 <script>
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-// import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faTags } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 import { mapGetters } from 'vuex'
 
 export default {
     components: {
-        // FontAwesomeIcon
+        FontAwesomeIcon
     },
     data() {
         return {
-            // check: faCheck,
+            tags: faTags,
             course: {},
             isSuccess: false,
+            code: '',
+            placeholder: 'Enter your code here',
+            discountNumber: '',
+            isShow: true,
+            newPrice: 0
         }
     },
     mounted() {
@@ -95,10 +119,33 @@ export default {
                 product_id: this.course.id,
                 customer_id: this.user.id,
                 discount_id: "1",
-                price: this.course.price
+                price: this.isShow == true ? this.course.price : this.newPrice
               })
               .then(response => { 
-                  this.isSuccess = response.data 
+                  let res = response.data;
+                  if(res.status == "200") { 
+                      this.isShow = true;
+                      this.isSuccess = true;
+                  }
+               });
+        },
+        sendCode() {
+            axios
+              .get('http://localhost/course_laravel/public/api/discount/' + this.code)
+              .then(response => { 
+                  let res = response.data;
+                  if(res.status == 200) {
+                    this.newPrice = this.course.price * (100-this.course.discount) /100;
+                    if(res.price.condition == 1) {
+                        this.newPrice = this.newPrice - res.price.number;
+                    } else {
+                        this.newPrice = this.newPrice * (100 - res.price.number) /100;
+                    }
+                    this.isShow = false;
+                  } else {
+                      this.placeholder = "Your code is wrong";
+                      this.code = "";
+                  }
                });
         }
     }
