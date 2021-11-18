@@ -21,7 +21,7 @@
                     alt="Ảnh detail course"
                 >
                 <span class="fs-3 fw-normal">
-                    {{ new Intl.NumberFormat().format(course.price) }} VND
+                    {{ new Intl.NumberFormat().format(course.price * (100-course.discount) /100) }} VND
                 </span>
                 <span
                     class="fs-5 fw-light"
