@@ -13,7 +13,7 @@
                 class="row g-0"
             >
                 <div class="col-md-4">
-                    <img src="../assets/images/htmlcss.png" class="img-fluid rounded-start" alt="...">
+                    <img :src="require(`@/assets/images/${item.photo}`)" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

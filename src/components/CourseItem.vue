@@ -1,7 +1,7 @@
 <template>
-    <div class="col-md-3 mt-2">
+    <div class="col-md-3 mt-2"> 
         <div class="card">
-            <img src="@/assets/images/htmlcss.png" class="card-img-top" alt="...">
+            <img :src="require(`@/assets/images/${item.photo}`)" class="card-img-top" alt="...">
             <div class="card-body">
                 <h4 class="card-title">{{ item.name }}</h4>
                 <p class="mt-5 mb-0 card-text price-text">
@@ -11,7 +11,7 @@
                     {{ new Intl.NumberFormat().format(item.price) }} VND
                 </p>
                 <router-link 
-                    type="button" 
+                    type="button"  
                     class="btn btn-detail"
                     :to="{ 
                         name: 'detailcourse', 
@@ -35,6 +35,9 @@ export default {
             type: Object,
             default: null
         }
+    },
+    mounted() { 
+        console.log(this.item);
     }
 }
 </script>
