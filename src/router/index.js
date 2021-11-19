@@ -18,10 +18,10 @@ export default new Router({
                 import(/* webpackChunkName: "category" */ "../views/Category.vue")
         },
         {
-            path: '/news',
-            name: 'news',
+            path: '/newslist',
+            name: 'newslist',
             component: () =>
-                import(/* webpackChunkName: "news" */ "../views/News.vue")
+                import(/* webpackChunkName: "newslist" */ "../views/NewsList.vue")
         },
         {
             path: '/detailcourse/:id',

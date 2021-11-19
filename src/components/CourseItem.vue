@@ -1,11 +1,11 @@
 <template>
     <div class="col-md-3 mt-2"> 
-        <div class="card">
+        <div class="card card__course">
             <img 
                 :src="require(`@/assets/images/${item.photo}`)" 
                 class="card-img-top" 
                 alt="Picture detail die"
-                style="border-bottom: 1px solid gray;"
+                style="border-bottom: 1px solid lightgray;"
             >
             <div class="card-body">
                 <h4 class="card-title">{{ item.name }}</h4>
@@ -75,6 +75,9 @@ export default {
 .discount-price-text {
     text-decoration: line-through;
     color: darkgray;
+}
+.card__course:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 40px;
 }
 </style>
       

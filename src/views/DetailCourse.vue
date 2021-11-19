@@ -16,9 +16,10 @@
             </div>
             <div class="col-md-4 text-center">
                 <img 
-                    src="@/assets/images/htmlcss.png" 
+                    :src="require(`@/assets/images/${course.photo}`)" 
                     class="img-fluid mb-3" 
                     alt="Ảnh detail course"
+                    style="border: 1px solid lightgray"
                 >
                 <span class="fs-3 fw-normal" v-if="isShow">
                     {{ new Intl.NumberFormat().format(course.price * (100-course.discount) /100) }} VND
