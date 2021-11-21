@@ -1,6 +1,13 @@
 <template>
 <div class="col-md-11">
-    <div class="card mb-3 p-0">
+    <router-link 
+        class="card mb-3 p-0" 
+        style="color:black;text-decoration: none;"
+        :to="{ 
+            name: 'detailnew', 
+            params: { id: item.id } 
+        }"
+    >
         <div class="row g-0">
             <div class="col-md-4">
                 <img 
@@ -17,7 +24,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </router-link>
 </div>
 </template>
 

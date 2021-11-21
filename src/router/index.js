@@ -24,6 +24,12 @@ export default new Router({
                 import(/* webpackChunkName: "newslist" */ "../views/NewsList.vue")
         },
         {
+            path: '/detailnew/:id',
+            name: 'detailnew',
+            component: () =>
+                import(/* webpackChunkName: "detailnew" */ "../views/DetailNew.vue")
+        },
+        {
             path: '/detailcourse/:id',
             name: 'detailcourse',
             component: () =>

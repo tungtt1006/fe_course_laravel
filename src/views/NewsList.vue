@@ -24,7 +24,7 @@
                     <button 
                         class="dropdown-item" 
                         type="button" 
-                        @click="sortCourse(item.title, subItem.order)"
+                        @click="sortNew(item.title, subItem.order)"
                     >
                         {{ subItem.name }}
                     </button>
@@ -51,7 +51,7 @@
                             v-if="index > 0 && index < links.length-1"  
                             class="page-link"
                             :style="(item.active == false) ? 'color:#00c292;' : 'color:white;background-color:#00c292;'"
-                            @click="getNews(item.label)"
+                            @click="getNews(item.label, type, order)"
                         >
                             {{ item.label }}
                         </a>
@@ -91,21 +91,34 @@ export default {
                 },
             ],
             links: [],
-            currentPage: 1
+            currentPage: 1,
+            type: '',
+            order: '',
         }
     },
     mounted() {
-       this.getNews(1); 
+       this.type = 'created_at';
+       this.order = 'desc';
+       this.getNews(1, this.type, this.order); 
     },
     methods: {
-        getNews(page) {
+        getNews(page, type, order) {
             axios
-            .get('http://localhost/course_laravel/public/api/newslist?page=' + page)
+            .get('http://localhost/course_laravel/public/api/newslist?page=' + page + '&type=' + type + '&order=' + order)
             .then(response => { 
                 this.newList     = response.data.data; 
                 this.links       = response.data.links;
                 this.currentPage = response.data.current_page;
             });
+        },
+        sortNew(type, order) {
+            if(type == 'Name') {
+                this.type = 'name';
+            } else if(type == 'Time') {
+                this.type = 'created_at';
+            }
+            this.order = order;
+            this.getNews(this.currentPage, this.type, this.order);
         }
     },
 }
