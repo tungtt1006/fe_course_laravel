@@ -102,7 +102,8 @@ export default {
             placeholder: 'Enter your code here',
             discountNumber: '',
             isShow: true,
-            newPrice: 0
+            newPrice: 0,
+            discountId: 0
         }
     },
     mounted() {
@@ -119,8 +120,8 @@ export default {
               .post('http://localhost/course_laravel/public/api/order/store', {
                 product_id: this.course.id,
                 customer_id: this.user.id,
-                discount_id: "1",
-                price: this.isShow == true ? this.course.price : this.newPrice
+                discount_id: this.discountId,
+                price: this.isShow == true ? (this.course.price * (100-this.course.discount) /100) : this.newPrice
               })
               .then(response => { 
                   let res = response.data;
@@ -137,6 +138,7 @@ export default {
                   let res = response.data;
                   if(res.status == 200) {
                     this.newPrice = this.course.price * (100-this.course.discount) /100;
+                    this.discountId = res.price.id; 
                     if(res.price.condition == 1) {
                         this.newPrice = this.newPrice - res.price.number;
                     } else {
