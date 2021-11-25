@@ -34,7 +34,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-6"></div>
         <div class="col-md-2">
             <nav aria-label="Page navigation example">
                 <ul class="pagination m-0 pagination-sm">
@@ -119,13 +119,6 @@ export default {
                         { name: 'DESC', order: 'desc' }
                     ]
                 },
-                {
-                    title: 'Discount',
-                    type: [
-                        { name: 'ASC', order: 'asc' },
-                        { name: 'DESC', order: 'desc' }
-                    ]
-                }
             ],
         }
     },

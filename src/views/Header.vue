@@ -37,10 +37,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link nav_item" to="/">News</router-link>
+                        <router-link class="nav-link nav_item" to="/newslist">News</router-link>
                     </li>
                     <li class="nav-item nav_item">
-                        <router-link class="nav-link nav_item" to="/">About us</router-link>
+                        <router-link class="nav-link nav_item" to="/aboutus">About us</router-link>
                     </li>
                 </ul>
             </div>

@@ -6,13 +6,26 @@
         >
             -- Welcome to <span style="color:#00c292">KOURSES</span> --
         </h1>
+        <h3 
+            style="font-weight: 400;color:red" 
+            class="text-center"
+            v-if="isFail"
+        >
+            Login Fail !!!
+        </h3>
         <div class="pt-3" style="width: 60%;margin-left: 350px;">
             <div class="row g-3">
                 <div class="col-md-7">
                     <input type="email" class="form-control form-control-lg" v-model="email" placeholder="Enter your email">
                 </div>
+                <div class="col-md-1" v-if="emailError">
+                    <span style="font-size: 20px;color:red;">*</span>
+                </div>
                 <div class="col-md-7">
                     <input type="password" class="form-control form-control-lg" v-model="password" placeholder="Enter your password">
+                </div>
+                <div class="col-md-1" v-if="passwordError">
+                    <span style="font-size: 20px;color:red;">*</span>
                 </div>
                 <div class="col-md-7 mt-4">
                     <button type="button" class="btn btn_login" @click="signIn()">Sign in</button>
@@ -45,8 +58,11 @@ export default {
             email: '',
             password: '',
             res: {},
-            isSuccess: false,
-            moveTo: ''
+            isFail: false,
+            moveTo: '',
+            emailError: false,
+            passwordError: false,
+            timeOut: null
         }     
     },
     mounted() {
@@ -56,8 +72,30 @@ export default {
     },
     methods: {
         ...mapActions(['setUser']),
+        validateEmail(mail) {
+            const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //eslint-disable-line 
+            if (pattern.test(mail)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         signIn() {
-            if(this.password != '') {
+            if(this.password == '') {
+                this.passwordError = true;
+                return;
+            } else {
+                this.passwordError = false;
+            }
+            if(this.email == '' || !this.validateEmail(this.email)) {
+                this.emailError = true;
+                return;
+            } else {
+                this.emailError = false;
+            }
+
+            clearTimeout(this.timeOut);
+            this.timeOut = setTimeout(() => {
                 axios
                 .post("http://localhost/course_laravel/public/api/login", {
                     email: this.email,
@@ -66,18 +104,17 @@ export default {
                 .then(response => { 
                     this.res = response.data;
                     if(this.res.status == "200") {
-                        this.isSuccess = true;
                         this.setUser(this.res.customer);
                         if(Object.keys(this.$route.params).length == 0) {
                             this.$router.push('/');
                         } else {
                             this.$router.push(this.$route.params.moveTo);
                         }
+                    } else if(this.res.status == "500") {
+                        this.isFail = true;
                     }
                 });
-            } else {
-                alert("Enter your password");
-            }
+            }, 300);
         }
     }
 }
