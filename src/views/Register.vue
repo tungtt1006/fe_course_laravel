@@ -82,9 +82,17 @@ export default {
                 return false;
             }
         },
+        validatePassword(password) {
+            const pattern = /^-?[\d.]+(?:e-?\d+)?$/; //eslint-disable-line 
+            if (pattern.test(password) && password.length > 8 && password.length < 11) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         signUp() {
             const self = this;
-            if(!self.validateEmail(self.email) && self.name != '' && self.username != ''&& self.email != ''&& self.phoneNumber != ''&& self.password != ''&& self.gender != ''&& self.address) {
+            if(self.validatePassword(self.password) && self.validateEmail(self.email) && self.name != '' && self.username != ''&& self.email != ''&& self.phoneNumber != ''&& self.password != ''&& self.gender != ''&& self.address) {
                 let k = {
                     name: this.name,
                     username: this.username,

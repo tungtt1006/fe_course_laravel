@@ -80,18 +80,27 @@ export default {
                 return false;
             }
         },
+        validatePassword(password) {
+            const pattern = /^-?[\d.]+(?:e-?\d+)?$/; //eslint-disable-line 
+            if (pattern.test(password) && password.length > 8 && password.length < 11) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         signIn() {
-            if(this.password == '') {
+            if(this.password == '' || !this.validatePassword(this.password)) {
                 this.passwordError = true;
-                return;
             } else {
                 this.passwordError = false;
             }
             if(this.email == '' || !this.validateEmail(this.email)) {
                 this.emailError = true;
-                return;
             } else {
                 this.emailError = false;
+            }
+            if(this.passwordError == true || this.emailError == true) {
+                return;
             }
 
             clearTimeout(this.timeOut);
