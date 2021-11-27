@@ -134,6 +134,10 @@ export default {
                         this.isShow = true;
                         this.isSuccess = true;
                         this.isDisableCode = false;
+
+                        setTimeout(() => {
+                            this.$router.push('/');
+                        }, 1000);
                     }
                });
             }, 300);

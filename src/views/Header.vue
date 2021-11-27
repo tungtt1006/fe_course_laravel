@@ -48,7 +48,7 @@
                 <span style="font-size: 20px;color:white;font-weight: 300;">Hi, <b>{{ user.username }}</b> /</span> 
                 <span 
                     style="font-size: 20px;color:white;font-weight: 300;cursor: default;"
-                    @click="setUser({})"
+                    @click="deleteAcc()"
                 > 
                     Logout
                 </span>
@@ -66,15 +66,27 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  mounted() {
-      this.getCategorylist();
-  },
-  methods: {
-      ...mapActions(['getCategorylist', 'setUser'])
-  },
-  computed: {
-      ...mapGetters(['categoryList', 'user'])
-  }
+    created() {
+        this.getCategorylist();
+    },
+    mounted() {
+        if(localStorage.user != undefined) {
+            this.setUser(JSON.parse(localStorage.user));
+        }
+    },
+    beforeDetroy() {
+        this.deleteAcc(); 
+    },
+    methods: {
+        ...mapActions(['getCategorylist', 'setUser']),
+        deleteAcc() {
+            this.setUser({});
+            window.localStorage.removeItem('user'); 
+        }
+    },
+    computed: {
+        ...mapGetters(['categoryList', 'user'])
+    }
 }
 </script>
 

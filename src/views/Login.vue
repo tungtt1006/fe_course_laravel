@@ -113,6 +113,10 @@ export default {
                 .then(response => { 
                     this.res = response.data;
                     if(this.res.status == "200") {
+
+                        const user = JSON.stringify(this.res.customer);
+                        localStorage.setItem('user', user);
+                        
                         this.setUser(this.res.customer);
                         if(Object.keys(this.$route.params).length == 0) {
                             this.$router.push('/');
