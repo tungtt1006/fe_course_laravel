@@ -30,6 +30,12 @@ export default new Router({
                 import(/* webpackChunkName: "detailnew" */ "../views/DetailNew.vue")
         },
         {
+            path: '/detailuser',
+            name: 'detailuser',
+            component: () =>
+                import(/* webpackChunkName: "detailuser" */ "../views/DetailUser.vue")
+        },
+        {
             path: '/detailcourse/:id',
             name: 'detailcourse',
             component: () =>

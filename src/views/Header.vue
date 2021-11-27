@@ -46,7 +46,9 @@
             </div>
             <div></div>
             <div v-if="Object.keys(user).length != 0">
-                <span style="font-size: 20px;color:white;font-weight: 300;">Hi, <b>{{ user.username }}</b> /</span> 
+                <router-link to="/detailuser" style="text-decoration: none;">
+                    <span style="font-size: 20px;color:white;font-weight: 300;">Hi, <b>{{ user.username }}</b> /</span> 
+                </router-link>
                 <span 
                     style="font-size: 20px;color:white;font-weight: 300;cursor: default;"
                     @click="deleteAcc()"
