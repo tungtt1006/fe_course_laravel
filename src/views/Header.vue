@@ -44,6 +44,7 @@
                     </li>
                 </ul>
             </div>
+            <div></div>
             <div v-if="Object.keys(user).length != 0">
                 <span style="font-size: 20px;color:white;font-weight: 300;">Hi, <b>{{ user.username }}</b> /</span> 
                 <span 

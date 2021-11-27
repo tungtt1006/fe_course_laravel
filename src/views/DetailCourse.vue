@@ -1,9 +1,15 @@
 <template>
     <div class="container-fluid pt-4">
-        <div class="row">
+        <div v-if="isLoading" class="text-center" style="height: 400px;padding-top: 150px;">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            <h1 class="fw-light" style="color:#00c292">Waiting a second</h1>
+        </div>
+        <div class="row" v-show="!isLoading">
             <div class="col-md-8">
                 <div class="alert alert-success" role="alert" v-show="isSuccess">
-                    Register Successfully - HELLO !!!!
+                    Register Successfully - Check your mail now!!!!
                 </div>
                 <h1>
                     {{ course.name }} 
@@ -39,7 +45,7 @@
                         class="btn px-5 mt-3 btn__register"
                         @click="registerCourse()"
                     >
-                        Register
+                        <span>Register</span>
                     </btn>
                     <div class="row mt-3">
                         <div class="col-md-9 p-0">
@@ -106,7 +112,8 @@ export default {
             newPrice: 0,
             discountId: 0,
             timeOut: null,
-            isDisableCode: false
+            isDisableCode: false,
+            isLoading: false
         }
     },
     created() {
@@ -120,6 +127,7 @@ export default {
     methods: {
         registerCourse() {
             clearTimeout(this.timeOut);
+            this.isLoading = true;
             this.timeOut = setTimeout(() => {
                 axios
                 .post('http://localhost/course_laravel/public/api/order/store', {
@@ -134,10 +142,7 @@ export default {
                         this.isShow = true;
                         this.isSuccess = true;
                         this.isDisableCode = false;
-
-                        setTimeout(() => {
-                            this.$router.push('/');
-                        }, 1000);
+                        this.isLoading = false;
                     }
                });
             }, 300);
