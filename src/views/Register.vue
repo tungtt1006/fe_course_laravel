@@ -84,15 +84,15 @@ export default {
         },
         validatePassword(password) {
             const pattern = /^-?[\d.]+(?:e-?\d+)?$/; //eslint-disable-line 
-            if (pattern.test(password) && password.length > 8 && password.length < 11) {
+            if (pattern.test(password) && password.length >= 8 && password.length < 11) {
                 return true;
             } else {
                 return false;
             }
         },
-        signUp() {
+        signUp() { 
             const self = this;
-            if(self.validatePassword(self.password) && self.validateEmail(self.email) && self.name != '' && self.username != ''&& self.email != ''&& self.phoneNumber != ''&& self.password != ''&& self.gender != ''&& self.address) {
+            if(self.validatePassword(self.phoneNumber) && self.validateEmail(self.email) && self.name != '' && self.username != ''&& self.email != ''&& self.phoneNumber != ''&& self.password != ''&& self.gender != ''&& self.address) {
                 let k = {
                     name: this.name,
                     username: this.username,
@@ -102,7 +102,7 @@ export default {
                     gender: this.gender,
                     address: this.address
                 }
-                if(this.password === this.rePassword) {
+                if(this.password === this.rePassword && self.password.length >=8) {
                     axios
                     .post("http://localhost/course_laravel/public/api/register", {
                         name: this.name,
@@ -115,6 +115,8 @@ export default {
                     })
                     .then(() => { 
                             this.isSuccess = true;
+                            const user = JSON.stringify(k);
+                            localStorage.setItem('user', user);
                             self.setUser(k);
                             setTimeout(() => {
                                 this.isSuccess = false;
@@ -126,7 +128,7 @@ export default {
                             }
                     });
                 } else {
-                    alert("Re-enter password is wrong");
+                    alert("Enter password is wrong");
                     this.rePassword = "";
                     this.password = "";
                 }

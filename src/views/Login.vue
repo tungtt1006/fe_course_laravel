@@ -80,16 +80,16 @@ export default {
                 return false;
             }
         },
-        validatePassword(password) {
-            const pattern = /^-?[\d.]+(?:e-?\d+)?$/; //eslint-disable-line 
-            if (pattern.test(password) && password.length >= 8 && password.length < 11) {
-                return true;
-            } else {
-                return false;
-            }
-        },
+        // validatePassword(password) {
+        //     const pattern = /^-?[\d.]+(?:e-?\d+)?$/; //eslint-disable-line 
+        //     if (pattern.test(password) && password.length >= 8 && password.length < 11) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // },
         signIn() {
-            if(this.password == '' || !this.validatePassword(this.password)) {
+            if(this.password == '' || !this.password.length>=8) {
                 this.passwordError = true;
             } else {
                 this.passwordError = false;
