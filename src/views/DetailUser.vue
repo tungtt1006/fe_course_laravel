@@ -53,7 +53,8 @@
                     <td>{{ i }}</td>
                     <td>{{ item.productName }}</td>
                     <td>{{ new Intl.NumberFormat().format(item.price) }} VND</td>
-                    <td>{{ new Date(item.created_at).getDay() }}/{{ new Date(item.created_at).getMonth() }}/{{ new Date(item.created_at).getFullYear() }}</td>
+                    <!-- <td>{{ new Date(item.created_at).getDay() }}/{{ new Date(item.created_at).getMonth() }}/{{ new Date(item.created_at).getFullYear() }}</td> -->
+                    <td>{{ item.date.getDay() }}</td>
                     <td class="text-center">
                         <button type="button" class="btn btn-danger" @click="deleteOrder(item.id, i)">
                             <font-awesome-icon :icon="faTrash" font-weight="500" />
