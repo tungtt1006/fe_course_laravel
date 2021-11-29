@@ -8,7 +8,7 @@
                 style="border-bottom: 1px solid lightgray;"
             >
             <div class="card-body">
-                <h4 class="card-title">{{ item.name }}</h4>
+                <h4 class="card-title" style="font-size:20px;">{{ item.name }}</h4>
                 <p class="mt-5 mb-0 card-text price-text">
                     {{ new Intl.NumberFormat().format(item.price * (100-item.discount) /100) }} VND
                 </p>

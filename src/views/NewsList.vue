@@ -85,8 +85,8 @@ export default {
                 {
                     title: 'Time',
                     type: [
-                        { name: 'ASC', order: 'asc' },
-                        { name: 'DESC', order: 'desc' }
+                        { name: 'Oldest', order: 'asc' },
+                        { name: 'Newest', order: 'desc' }
                     ]
                 },
             ],

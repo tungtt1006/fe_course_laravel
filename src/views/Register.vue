@@ -103,7 +103,7 @@ export default {
                     address: this.address
                 }
                 if(this.password === this.rePassword && self.password.length >=8) {
-                    axios
+                    axios 
                     .post("http://localhost/course_laravel/public/api/register", {
                         name: this.name,
                         username: this.username,
@@ -113,10 +113,23 @@ export default {
                         gender: this.gender,
                         address: this.address
                     })
-                    .then(() => { 
+                    .then(response => {
+                        let res = response.data; 
+                        if(res.status == "200") {
                             this.isSuccess = true;
+
+                            k.id =  res.customer.id;
+                            k.name = this.name;
+                            k.username = this.username;
+                            k.email = this.email;
+                            k.phonenumber= this.phoneNumber;
+                            k.password = this.password;
+                            k.gender= this.gender;
+                            k.address= this.address;
+
                             const user = JSON.stringify(k);
                             localStorage.setItem('user', user);
+
                             self.setUser(k);
                             setTimeout(() => {
                                 this.isSuccess = false;
@@ -126,6 +139,7 @@ export default {
                             } else {
                                 self.$router.push(self.$route.params.moveTo);
                             }
+                        } 
                     });
                 } else {
                     alert("Enter password is wrong");
@@ -133,7 +147,7 @@ export default {
                     this.password = "";
                 }
             } else {
-                alert("Fill in the black please");
+                alert("Fill in the blank space!");
             }
         }
     }

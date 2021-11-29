@@ -20,7 +20,7 @@
                 <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text custom__description">{{ item.description }}</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <p class="card-text"><small class="text-muted">{{ moment(item.created_at) }}</small></p>
                 </div>
             </div>
         </div>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
     props: {
         item: {
@@ -41,6 +43,11 @@ export default {
             
         }
     }, 
+    methods: {
+        moment(time) {
+            return moment(time).fromNow();
+        }
+    }
 }
 </script>
 
