@@ -152,20 +152,28 @@ export default {
                 clearTimeout(this.timeOut);
                 this.timeOut = setTimeout(() => {
                     axios
-                    .get('http://localhost/course_laravel/public/api/discount/' + this.code)
+                    .get('http://localhost/course_laravel/public/api/discount/'+ this.user.id + '/' + this.code)
                     .then(response => { 
                         let res = response.data;
                         if(res.status == 200) {
-                            this.newPrice = this.course.price * (100-this.course.discount) /100;
-                            this.discountId = res.price.id; 
-                            if(res.price.condition == 2) {
-                                this.newPrice = this.newPrice - res.price.number;
-                            } else if(res.price.condition == 1) {
-                                this.newPrice = this.newPrice * (100 - res.price.number) /100;
+                            if(res.price == null) {
+                                alert("Your code has been used");
+                                this.code = '';
+                                return;
+                            } else {
+                                this.newPrice = this.course.price * (100-this.course.discount) /100;
+                                this.discountId = res.price.id; 
+
+                                if(res.price.condition == 2) {
+                                    this.newPrice = this.newPrice - res.price.number;
+                                } else if(res.price.condition == 1) {
+                                    this.newPrice = this.newPrice * (100 - res.price.number) /100;
+                                }
+
+                                this.isShow = false;
+                                this.isDisableCode = true;
+                                this.code = '';
                             }
-                            this.isShow = false;
-                            this.isDisableCode = true;
-                            this.code = '';
                         } else {
                             this.placeholder = "Your code is wrong";
                             this.code = "";
