@@ -169,7 +169,7 @@ export default {
                                 } else if(res.price.condition == 1) {
                                     this.newPrice = this.newPrice * (100 - res.price.number) /100;
                                 }
-
+                                this.placeholder = "Enter your code";
                                 this.isShow = false;
                                 this.isDisableCode = true;
                                 this.code = '';
