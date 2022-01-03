@@ -49,8 +49,9 @@
 </template>
   
 <script>
-import axios from 'axios'
+import { authApi } from '@/api/auth.js'
 import { mapActions } from 'vuex'
+import { validate } from '@/util/util.js'
 
 export default {
     data() {
@@ -88,32 +89,19 @@ export default {
         //         return false;
         //     }
         // },
-        signIn() {
-            if(this.password == '' || !this.password.length>=8) {
-                this.passwordError = true;
-            } else {
-                this.passwordError = false;
-            }
-            if(this.email == '' || !this.validateEmail(this.email)) {
-                this.emailError = true;
-            } else {
-                this.emailError = false;
-            }
-            if(this.passwordError == true || this.emailError == true) {
-                return;
-            }
+        async signIn() {
+            const self = this
+            if(!validate.validatePassword(self.password)) return
 
             clearTimeout(this.timeOut);
             this.timeOut = setTimeout(() => {
-                axios
-                .post("http://localhost/course_laravel/public/api/login", {
-                    email: this.email,
-                    password: this.password
-                })
-                .then(response => { 
+                let k = {
+                    email: self.email,
+                    password: self.password
+                }
+                authApi.login(k).then(response => { 
                     this.res = response.data;
                     if(this.res.status == "200") {
-
                         const user = JSON.stringify(this.res.customer);
                         localStorage.setItem('user', user);
                         
@@ -126,7 +114,7 @@ export default {
                     } else if(this.res.status == "500") {
                         this.isFail = true;
                     }
-                });
+                    });
             }, 300);
         }
     }
