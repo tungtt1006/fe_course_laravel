@@ -2,7 +2,7 @@
 <div>
     <nav class="navbar navbar-expand-sm" style="background-color: white;">
         <div class="col-md-8">
-            <h1 class="ps-3 m-0 fw-normal" style="color:#00c292;cursor: default;">KOURSES</h1>
+            <h1 class="ps-3 m-0 fw-normal" style="color:#00c292;cursor: default;">XT</h1>
         </div>
         <div class="col-md-2 ps-3">
             <p class="m-0 fw-thin">Email</p>
