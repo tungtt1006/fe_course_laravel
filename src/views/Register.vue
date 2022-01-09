@@ -1,153 +1,208 @@
 <template>
-    <div class="container-fluid pb-5">
-        <h1 
-            class="text-center pb-3" 
-            style="font-weight: 400;"
-        >
-            -- Welcome to our website --
-        </h1>
-        <div class="alert alert-success" role="alert" v-show="isSuccess">
-            Register Successfully - HELLO !!!!
-        </div>
-        <div class="row g-3">
-            <div class="col-md-4">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-control" v-model="email" required>
+    <div 
+        class="container-fluid"
+        style="background-color: white;"
+    >
+        <div class="row" style="height: 600px;overflow: hidden;">
+            <div class="col-5 img_register">
+                <img 
+                    :src="require(`@/assets/images/register.jpg`)" 
+                    alt="Picture register die"
+                    style="width: 100%;"
+                >
             </div>
-            <div class="col-md-2">
-                <label class="form-label">Name</label>
-                <input type="text" class="form-control" v-model="name">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Username</label>
-                <input type="text" class="form-control" v-model="username">
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Password</label>
-              <input type="password" class="form-control" v-model="password">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Re-enter the password</label>
-                <input type="password" class="form-control" v-model="rePassword">
-            </div>
-            <div class="col-10">
-                <label class="form-label">Address</label>
-                <input type="text" class="form-control" v-model="address">
-            </div>
-            <div class="col-6">
-                <label class="form-label">Phone Number</label>
-                <input type="text" class="form-control" v-model="phoneNumber">
-            </div>
-            <div class="col-md-4">
-                <label for="inputState" class="form-label">Gender</label>
-                <select id="inputState" class="form-select" v-model="gender">
-                    <option selected>Female</option>
-                    <option>Male</option>
-                    <option>Other</option>
-                </select>
-            </div>
-            <div class="col-12">
-                <button type="button" class="btn btn_register" @click="signUp()">Sign up</button>
+
+            <div class="col-7 mt-3">
+                <h1 class="text-center" style="font-weight: 400;">
+                    Đăng Kí Ngay
+                </h1>
+                <div class="row ms-2" style="height:55px;">
+                    <div 
+                        class="alert alert-success mh-100 alert_custom" 
+                        role="alert" 
+                        v-if="isSuccess"
+                    >
+                        <b>Đăng kí thành công</b>
+                    </div>
+                    <div 
+                        class="alert alert-danger mh-100 alert_custom" 
+                        role="alert"
+                        v-if="isFail"
+                    >
+                        <b>Đăng kí thất bại</b>
+                    </div>
+                </div>
+
+                <div class="row ms-2">
+                    <div class="col-5 input__custom">
+                        <input type="text" v-model="name" placeholder="Tên" required>
+                        <p class="error" v-if="nameError" style="color: red;">Không nhập quá 20 kí tự, chỉ nhập chữ</p>
+                        <p class="error" v-else style="color: white;">T</p>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-5 input__custom">
+                        <input type="email" v-model="email" placeholder="Email" required>
+                        <p class="error" v-if="emailError" style="color: red;">Nhập chưa đúng định dạng</p>
+                        <p class="error" v-else style="color: white;">T</p>
+                    </div>
+                </div>
+                <div class="row mt-3 ms-2">
+                    <div class="col-5 input__custom">
+                        <input type="password" v-model="password" placeholder="Mật khẩu" required>
+                        <p class="error" v-if="passwordError" style="color: red;">Không nhập dưới 8 kí tự & quá 11 kí tự</p>
+                        <p class="error" v-else style="color: white;">T</p>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-5 input__custom"> 
+                        <input type="password" v-model="rePassword" placeholder="Nhập lại mật khẩu" required>
+                        <p class="error" v-if="repasswordError" style="color: red;">Mật khẩu không khớp</p>
+                        <p class="error" v-else style="color: white;">T</p>
+                    </div>
+                </div>
+                <div class="row mt-3 ms-2">
+                    <div class="col-5 input__custom">
+                        <input type="text" v-model="phoneNumber" placeholder="Số điện thoại" required>
+                        <p class="error" v-if="phoneNumberError" style="color: red;">Không nhập chữ, chỉ được nhập 10 số</p>
+                        <p class="error" v-else style="color: white;">T</p>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-5 pt-3">
+                        <input type="radio" value="1" v-model="gender">
+                        <label class="ms-1">Nam</label>
+                        <input class="ms-3" type="radio" value="0" v-model="gender">
+                        <label class="ms-1">Nữ</label>
+                        <input class="ms-3" type="radio" value="2" v-model="gender">
+                        <label class="ms-1">Khác</label>
+                    </div>
+                </div>
+                <div class="row my-4 ms-2">
+                    <div class="col-11 input__custom">
+                        <input type="text" v-model="address" placeholder="Địa chỉ">
+                        <p class="error" v-if="addressError" style="color: red;">Không nhập quá 100 kí tự</p>
+                        <p class="error" v-else style="color: white;">T</p>
+                    </div>
+                </div>
+                <div class="row pt-5">
+                    <div class="col-12 text-center">
+                        <button 
+                            type="button" 
+                            class="btn btn_register" 
+                            @click="signUp()"
+                            :disabled="isRunning"
+                        >
+                            Đăng kí
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
   
 <script>
-import axios from 'axios'
-import { mapActions } from 'vuex'
+import util from '@/util/util.js'
+import { authApi } from '@/api/auth.js'
 
 export default {
     data() {
         return {
             email: '',
             name: '',
-            username: '',
             password: '',
             rePassword: '',
             address: '',
             phoneNumber: '',
             gender: '',
             res: {},
-            isSuccess: false
+            isSuccess: false,
+            isFail: false,
+            nameError: false,
+            emailError: false,
+            passwordError: false,
+            repasswordError: false,
+            phoneNumberError: false,
+            addressError: false,
+            isRunning: false
         }     
     },
     methods: {
-        ...mapActions(['setUser']),
-        validateEmail(mail) {
-            const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //eslint-disable-line 
-            if (pattern.test(mail)) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-        validatePassword(password) {
-            const pattern = /^-?[\d.]+(?:e-?\d+)?$/; //eslint-disable-line 
-            if (pattern.test(password) && password.length >= 8 && password.length < 11) {
-                return true;
-            } else {
-                return false;
-            }
-        },
         signUp() { 
-            const self = this;
-            if(self.validatePassword(self.phoneNumber) && self.validateEmail(self.email) && self.name != '' && self.username != ''&& self.email != ''&& self.phoneNumber != ''&& self.password != ''&& self.gender != ''&& self.address) {
-                let k = {
-                    name: this.name,
-                    username: this.username,
-                    email: this.email,
-                    phonenumber: this.phoneNumber,
-                    password: this.password,
-                    gender: this.gender,
-                    address: this.address
+            if(
+                this.nameError 
+                || this.emailError 
+                || this.passwordError
+                || this.repasswordError
+                || this.phoneNumberError
+                || this.addressError
+            )  {
+                return
+            }
+            
+            this.isRunning = true
+            let k = {
+                name: this.name,
+                email: this.email,
+                phone: this.phoneNumber,
+                password: this.password,
+                password_confirmation: this.rePassword,
+                gender: this.gender,
+                address: this.address
+            }
+            
+            authApi.register(k).then(response => { 
+                if(response.status == 201) {
+                    this.isSuccess = true
+                    setTimeout(() => {
+                        this.$router.push('/login')
+                    }, 700)
                 }
-                if(this.password === this.rePassword && self.password.length >=8) {
-                    axios 
-                    .post("http://localhost/course_laravel/public/api/register", {
-                        name: this.name,
-                        username: this.username,
-                        email: this.email,
-                        phonenumber: this.phoneNumber,
-                        password: this.password,
-                        gender: this.gender,
-                        address: this.address
-                    })
-                    .then(response => {
-                        let res = response.data; 
-                        if(res.status == "200") {
-                            this.isSuccess = true;
-
-                            k.id =  res.customer.id;
-                            k.name = this.name;
-                            k.username = this.username;
-                            k.email = this.email;
-                            k.phonenumber= this.phoneNumber;
-                            k.password = this.password;
-                            k.gender= this.gender;
-                            k.address= this.address;
-
-                            const user = JSON.stringify(k);
-                            localStorage.setItem('user', user);
-
-                            self.setUser(k);
-                            setTimeout(() => {
-                                this.isSuccess = false;
-                            }, 1000);
-                            if(Object.keys(self.$route.params).length == 0) {
-                                self.$router.push('/');
-                            } else {
-                                self.$router.push(self.$route.params.moveTo);
-                            }
-                        } 
-                    });
-                } else {
-                    alert("Enter password is wrong");
-                    this.rePassword = "";
-                    this.password = "";
-                }
+            }).catch(() => {
+                this.isFail = true
+                this.isRunning = false
+            })
+        }
+    },
+    watch: {
+        name(val) {
+            if(!util.validate.validateName(val)) {
+                this.nameError = true
             } else {
-                alert("Fill in the blank space!");
+                this.nameError = false
+            }
+        },
+        email(val) {
+            if(!util.validate.validateEmail(val)) {
+                this.emailError = true
+            } else {
+                this.emailError = false
+            }
+        },
+        password(val) {
+            if(!util.validate.validatePassword(val)) {
+                this.passwordError = true
+            } else {
+                this.passwordError = false
+            }
+        },
+        rePassword(val) {
+            if(val === this.password) {
+                this.repasswordError = false
+            } else {
+                this.repasswordError = true
+            }
+        },
+        phoneNumber(val) {
+            if(!util.validate.validatePhoneNumber(val)) {
+                this.phoneNumberError = true
+            } else {
+                this.phoneNumberError = false
+            }
+        },
+        address(val) {
+            if(val.length < 100) {
+                this.addressError = false
+            } else {
+                this.addressError = true
             }
         }
     }
@@ -155,10 +210,31 @@ export default {
 </script>
 
 <style scoped>
+.img_register {
+    padding:0;height: 100%;
+}
+.input__custom input, .input__custom select {
+    font-size: 15px;
+    width: 100%;
+    padding: 10px 10px 5px 10px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #00c292;
+}
+.error {
+    font-size:13px;
+    margin: 0;
+}
 .btn_register {
     background-color: #00c292;
     color: white;
-    padding: 5px 35px;
+    margin: auto;
+    width: 30%;
+    border-radius: 0;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.alert_custom {
+    width: 90%;
 }
 </style>
   

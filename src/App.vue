@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid" id="app">
       <Header></Header>
-      <div class="container mt-3 main">
+      <div class="container mt-3 main_content">
           <router-view/>
       </div>
   </div>
@@ -24,7 +24,7 @@ body, #app {
   padding: 0;
   background-color: #f4f4f4;
 }
-.main {
-  background-color: white;   
+.main_content {
+  padding: 0 !important; 
 }
 </style>

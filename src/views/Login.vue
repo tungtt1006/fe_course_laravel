@@ -1,10 +1,10 @@
 <template>
-    <div class="container-fluid pb-5">
+    <div style="background-color: white;">
         <h1 
             class="text-center pb-3 pt-3" 
             style="font-weight: 400;"
         >
-            Chào mừng tới <span style="color:#00c292">XT</span>
+            Chào mừng tới <span style="color:#00c292">&lt;!--XT--&gt;</span>
         </h1>
         <h3 
             style="font-weight: 400;" 
@@ -29,7 +29,7 @@
         <div class="pt-3" style="width:50%;margin:auto;">
             <div class="row"> 
                 <div class="col-12 input__custom">
-                    <input type="email"  v-model="email" placeholder="xxxx@gmail.com">
+                    <input type="email"  v-model="email" placeholder="Email@gmail.com" required>
                     <template v-if="isTypingEmail">
                         <span 
                             class="status-input"  
@@ -45,7 +45,7 @@
             </div>
             <div class="row mt-5">
                 <div class="col-12 input__custom">
-                    <input type="password" class="input__custom" v-model="password" placeholder="********">
+                    <input type="password" class="input__custom" v-model="password" placeholder="********" required>
                     <template v-if="isTypingPassword">
                         <span 
                             class="status-input"  
@@ -55,7 +55,6 @@
                         </span>
                     </template>
                 </div>
-                
             </div>
             <div class="row mt-5">
                 <button 
