@@ -7,6 +7,12 @@ async function post(action, k) {
     return res
 }
 
+async function get(action) {
+    const res = await axios.get(domain + action)
+    return res
+}
+
 export const coreApi = {
-    post
+    post,
+    get
 }

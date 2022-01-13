@@ -32,7 +32,7 @@
 </template>
       
 <script>
-import axios from 'axios'
+import { bannerApi } from '@/api/banner.js'
 
 export default {
   data() {
@@ -41,10 +41,10 @@ export default {
           imgUrl: '../assets/images/'
       }
     },
-    mounted() {
-        axios
-          .get('http://localhost/course_laravel/public/api/banners')
-          .then(response => { this.bannerList = response.data });
+    created() {
+        bannerApi.getBannersHome().then(response => { 
+            this.bannerList = response.data 
+        });
     },
 }
 </script>

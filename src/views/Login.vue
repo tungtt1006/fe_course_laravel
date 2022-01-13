@@ -1,32 +1,31 @@
 <template>
-    <div style="background-color: white;">
+    <div
+        class="container"
+        style="background-color:white;width: 60%;"
+    >
         <h1 
             class="text-center pb-3 pt-3" 
             style="font-weight: 400;"
         >
             Chào mừng tới <span style="color:#00c292">&lt;!--XT--&gt;</span>
         </h1>
-        <h3 
-            style="font-weight: 400;" 
-            class="text-center"
-            v-if="isNoti"
-        >
-            <span 
-                class="noti_respond" 
-                style="background-color: #80ff00;"
-                v-if="notiContent"
+        <div class="row ps-5" style="height:55px;">
+            <div 
+                class="alert alert-success mh-100 alert_custom" 
+                role="alert" 
+                v-if="isSuccess"
             >
-                <font-awesome-icon :icon="faCheck" style="color:#00c292;" />
-            </span>
-            <span 
-                class="noti_respond" 
-                style="background-color: #ff4d4d;"
-                v-else
+                Đăng nhập thành công
+            </div>
+            <div 
+                class="alert alert-danger alert_custom" 
+                role="alert"
+                v-if="isFail"
             >
-                <font-awesome-icon :icon="faTimes" style="color:#e60000;" />
-            </span>
-        </h3>
-        <div class="pt-3" style="width:50%;margin:auto;">
+                Đăng nhập thất bại
+            </div>
+        </div>
+        <div class="mt-1" style="width:50%;margin:auto;">
             <div class="row"> 
                 <div class="col-12 input__custom">
                     <input type="email"  v-model="email" placeholder="Email@gmail.com" required>
@@ -63,7 +62,10 @@
                     @click="signIn()"
                     :disabled="isRunning"
                 >
-                    Đăng nhập
+                    <div class="spinner-border text-light" role="status" v-if="isRunning">
+                        <span class="visually-hidden" style="height: 10px;">Loading...</span>
+                    </div>
+                    <span v-else>Đăng nhập</span>
                 </button>
             </div>
             <div class="row text-center mt-5" style="font-size: 17px;">
@@ -87,14 +89,12 @@
 import { authApi } from '@/api/auth.js'
 import { mapActions } from 'vuex'
 import util from '@/util/util.js'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 export default {
     data() {
         return {
-            faCheck: faCheck,
-            faTimes: faTimes,
+            isSuccess: false,
+            isFail: false,
             email: '',
             password: '',
             res: {},
@@ -110,7 +110,7 @@ export default {
         }     
     },
     components: {
-        FontAwesomeIcon
+        // FontAwesomeIcon
     },
     mounted() {
         if(this.$route.params != {}) {
@@ -121,10 +121,10 @@ export default {
         ...mapActions(['setUser']),
         signIn() {
             const self = this
-            self.isRunning = true
 
             if(self.emailError && self.passwordError) return
-
+            
+            self.isRunning = true
             clearTimeout(this.timeOut);
             this.timeOut = setTimeout(() => {
                 let k = {
@@ -135,14 +135,14 @@ export default {
                     if(response.status == 200) {
                         let res = response.data
 
-                        const user = JSON.stringify(res.user);
-                        localStorage.setItem('user', user);
-                        const jwt = JSON.stringify(res.access_token);
-                        localStorage.setItem('jwt', jwt);
-                        this.setUser(res.user);
-
-                        self.isNoti = true
-                        self.notiContent = true
+                        // const user = JSON.stringify(res.user);
+                        // localStorage.setItem('user', user);
+                        // const jwt = JSON.stringify(res.access_token);
+                        // localStorage.setItem('jwt', jwt);
+                        // this.setUser(res.user);
+                        console.log(res);
+                        self.isSuccess = true
+                        self.isFail = false
                         setTimeout(() => {
                             if(Object.keys(this.$route.params).length == 0) {
                                 this.$router.push('/');
@@ -153,9 +153,7 @@ export default {
                     } 
                 }).catch(() => {
                     self.isRunning = false
-                    self.isNoti = true
-                    self.notiContent = false
-                    // self.email = ''
+                    self.isFail = true
                     self.password = ''
                 })
             }, 300);
@@ -218,12 +216,8 @@ export default {
 .link_register:hover {
     text-decoration: underline;
 }
-.noti_respond {
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    font-size: 35px;
-    font-weight: 400;
-    padding: 5px 10px;
-    border-radius: 50%;
+.alert_custom {
+    width: 90%;
 }
 </style>
   

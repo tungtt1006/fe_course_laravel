@@ -57,8 +57,8 @@
                 </span>
             </div>
             <div v-else class="pe-3" style="color:white">
-                <router-link class="sign_in" to="/login">Sign in</router-link> /
-                <router-link class="sign_up" to="/register">Sign up</router-link>    
+                <router-link class="sign_in" to="/login">Đăng nhập</router-link> /
+                <router-link class="sign_up" to="/register">Đăng kí</router-link>    
             </div>
         </div>
     </nav>    
