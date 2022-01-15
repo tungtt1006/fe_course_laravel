@@ -1,12 +1,24 @@
 <template>
-    <div class="container-fluid">
+    <div 
+        class="container-fluid"
+        style="background-color: white;"
+    >
         <Banners />
         
-        <CourseList v-for="item in categoryList"
-            :key="item.id"
-            :item="item"
-        >
-        </CourseList>
+        <h1 class="mt-3 title_category">Khóa học nổi bật</h1>
+        <div class="pb-2" style="margin:auto;overflow-x:auto;width: 95%;">
+            <div style="width: 1850px;">
+                <CourseList :course-array="hightlightCourses" />
+            </div>
+        </div>
+
+        <h1 class="mt-5 title_category">Khóa học mới nhất</h1>
+        <div class="pb-2" style="margin:auto;overflow-x:auto;width: 95%;">
+            <div style="width: 1850px;">
+                <CourseList :course-array="newestCourses" />
+            </div>
+        </div>
+        
         <div 
             class="row mt-5 py-5"
             style="padding-left: 80px;"
@@ -33,32 +45,43 @@ import News from '@/components/News.vue'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { courseApi } from '@/api/course.js'
 
 export default {
-  components: {
-      CourseList,
-      Banners,
-      News,
-      FontAwesomeIcon
-  },
-  data() {
-    return {
-        newList: [],
-        arrowRight: faArrowRight,
+    components: {
+        CourseList,
+        Banners,
+        News,
+        FontAwesomeIcon
+    },
+    data() {
+        return {
+            newList: [],
+            arrowRight: faArrowRight,
+            hightlightCourses: [],
+            newestCourses: []
+        }
+    },
+    created() {
+        courseApi.getHightlightCourse(6).then(response => { 
+            this.hightlightCourses = response.data
+        });
+        courseApi.getNewestCourse(6).then(response => { 
+            this.newestCourses = response.data
+        });
+    },
+    mounted() {
+        this.getCategorylist();
+        axios
+            .get('http://localhost/course_laravel/public/api/news/4')
+            .then(response => { this.newList = response.data });
+    },
+    methods: {
+        ...mapActions(['getCategorylist'])
+    },
+    computed: {
+        ...mapGetters(['categoryList'])
     }
-  },
-  mounted() {
-      this.getCategorylist();
-      axios
-          .get('http://localhost/course_laravel/public/api/news/4')
-          .then(response => { this.newList = response.data });
-  },
-  methods: {
-      ...mapActions(['getCategorylist'])
-  },
-  computed: {
-      ...mapGetters(['categoryList'])
-  }
 }
 </script>
 
@@ -71,6 +94,30 @@ export default {
 .seemore-text:hover {
     text-decoration: underline;
     color:black;
+}
+.title_category {
+    font-weight: 500;
+    font-size: 35px;
+    margin-left: 25px;
+}
+::-webkit-scrollbar {
+    height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: white; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 </style>
   
