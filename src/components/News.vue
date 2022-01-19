@@ -1,8 +1,7 @@
 <template>
 <div class="col-md-11">
     <router-link 
-        class="card mb-3 p-0" 
-        style="color:black;text-decoration: none;"
+        class="card mb-3 p-0 card-news" 
         :to="{ 
             name: 'detailnew', 
             params: { id: item.id } 
@@ -12,8 +11,8 @@
             <div class="col-md-4">
                 <img 
                     :src="require(`@/assets/images/${item.photo}`)" 
-                    class="img-fluid rounded-start" 
-                    alt="..."
+                    class=" img-fluid rounded-start" 
+                    alt="item.photo"
                 >
             </div>
             <div class="col-md-8">
@@ -45,13 +44,20 @@ export default {
     }, 
     methods: {
         moment(time) {
-            return moment(time).fromNow();
+            return moment(time).locale('vi').fromNow();
         }
     }
 }
 </script>
 
 <style scoped>
+.card-news {
+    color:black;
+    text-decoration: none;
+}
+.card-news:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 .custom__description {
     display: -webkit-box;
     line-height: 25px;

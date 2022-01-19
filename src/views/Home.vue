@@ -42,10 +42,10 @@ import { mapGetters, mapActions } from 'vuex'
 import CourseList from '@/components/CourseList.vue'
 import Banners from '@/components/Banners.vue'
 import News from '@/components/News.vue'
-import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { courseApi } from '@/api/course.js'
+import { newsApi } from '@/api/news.js'
 
 export default {
     components: {
@@ -65,16 +65,16 @@ export default {
     created() {
         courseApi.getHightlightCourse(6).then(response => { 
             this.hightlightCourses = response.data
-        });
+        })
         courseApi.getNewestCourse(6).then(response => { 
             this.newestCourses = response.data
-        });
+        })
+        newsApi.getNewsHome(4).then(response => { 
+            this.newList = response.data 
+        })
     },
     mounted() {
         this.getCategorylist();
-        axios
-            .get('http://localhost/course_laravel/public/api/news/4')
-            .then(response => { this.newList = response.data });
     },
     methods: {
         ...mapActions(['getCategorylist'])

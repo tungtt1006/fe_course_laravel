@@ -3,7 +3,13 @@
         class="mt-2"
         :class="[colSize]"
     > 
-        <div class="card card__course">
+        <router-link  
+            class="card card__course"
+            :to="{ 
+                name: 'detailcourse', 
+                params: { id: item.id } 
+            }"
+        >
             <img 
                 :src="require(`@/assets/images/${item.photo}`)" 
                 class="card-img-top" 
@@ -17,55 +23,30 @@
                 >
                     {{ item.name }}
                 </h4>
+                <p class="card-text description-text">{{ item.description }}</p>
 
                 <p class="mt-5 mb-0 card-text discount-price-text">
                     {{ new Intl.NumberFormat().format(item.price) }} VND
                 </p>
-                <p class="mt-0 mb-3 card-text price-text">
+                <p class="mt-0 card-text price-text">
                     {{ new Intl.NumberFormat().format(item.price * (100-item.discount) /100) }} VND
                 </p>
-                <router-link 
-                    type="button"  
-                    class="btn btn-detail px-5"
-                    :to="{ 
-                        name: 'detailcourse', 
-                        params: { id: item.id } 
-                    }"
-                >
-                    Chi tiết
-                </router-link>
-                <span class="ms-4" style="float: right;">
-                    <font-awesome-icon 
-                        :icon="users" 
-                        size="1x" 
-                        font-weight="400"
-                        color="gray" 
-                    />
-                    <span class="ms-1">100.000</span>
-                </span>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
       
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUsers } from '@fortawesome/free-solid-svg-icons'
-
 export default {
     props: {
         item: { type: Object, default: null },
         size: { type: Number, default: 2 }
-    },
-    components: {
-        FontAwesomeIcon
     },
     created() {
         this.colSize = "col-md-" + String(this.size)
     },
     data() {
         return {
-            users: faUsers,
             colSize: ''
         }
     }
@@ -73,13 +54,13 @@ export default {
 </script>
     
 <style scoped>
-.btn-detail {
-    background-color: #00c292;
-    color: white;
-    border-radius: 0;
-}
-.btn-detail:hover {
+.card__course {
     color: black;
+    text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.card__course:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .price-text {
     font-weight: 600;
@@ -90,8 +71,16 @@ export default {
     color: darkgray;
     font-size: 12px;
 }
-.card__course {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+.description-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* line-height: 25px; */
+    -webkit-line-clamp: 2;
+    /* height: 50px; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    color: #757575;
+    margin: 0;
 }
 </style>
       
