@@ -1,30 +1,25 @@
 <template>
-  <div class="container-fluid" id="app">
-      <Header></Header>
-      <div class="container mt-3 main_content">
+  <div id="app" class="container-fluid p-0">
+      <TheHeader/>
+      <div class="container mt-3 shadow-sm bg-white px-4">
           <router-view/>
       </div>
   </div>
 </template>
 
 <script>
-import Header from './views/Header.vue'
+import TheHeader from './components/TheHeader.vue'
 
 export default {
   name: 'App',
   components: {
-      Header
+      TheHeader
   }
 }
 </script>
 
 <style>
-body, #app {
-  margin: 0;
-  padding: 0;
+body {
   background-color: #f4f4f4;
-}
-.main_content {
-  padding: 0 !important; 
 }
 </style>

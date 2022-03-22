@@ -1,20 +1,20 @@
 <template>
-    <div 
+    <div
         class="row pt-4"
         style="padding-bottom: 30px;"
     >
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div 
+                <div
                     class="carousel-item"
                     :class="(index == 0) ? 'active' : ''"
-                    v-for="(item, index) in bannerList"
+                    v-for="(item, index) in banners"
                     :key="item.id"
                 >
-                    <img 
-                        :src="require('@/assets/images/' + item.photo)" 
-                        style="height: 420px;" 
-                        class="d-block w-100" 
+                    <img
+                        :src="item.photo"
+                        style="height: 420px;"
+                        class="d-block w-100"
                         alt="Lỗi ảnh banner"
                     >
               </div>
@@ -28,28 +28,25 @@
               <span class="visually-hidden">Next</span>
             </button>
         </div>
-    </div> 
+    </div>
 </template>
-      
+
 <script>
 import { bannerApi } from '@/api/banner.js'
 
 export default {
   data() {
       return {
-          bannerList: [],
-          imgUrl: '../assets/images/'
+          banners: [],
       }
     },
     created() {
-        bannerApi.getBannersHome().then(response => { 
-            this.bannerList = response.data 
-        });
+        bannerApi
+            .getBanners()
+            .then(response => {
+                this.banners = response.data
+            })
+            .catch(error => console.log(error))
     },
 }
 </script>
-      
-<style>
-
-</style>
-      

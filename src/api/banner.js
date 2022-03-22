@@ -1,7 +1,7 @@
 import { coreApi } from './api.js'
 
 export const bannerApi = {
-    getBannersHome() {
+    getBanners() {
         return coreApi.get('banners')
     }
 }
