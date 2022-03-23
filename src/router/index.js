@@ -11,12 +11,12 @@ export default new Router({
             component: () =>
                 import(/* webpackChunkName: "home" */ "../views/TheHome.vue")
         },
-        // {
-        //     path: '/category/:id',
-        //     name: 'category',
-        //     component: () =>
-        //         import(/* webpackChunkName: "category" */ "../views/Category.vue")
-        // },
+        {
+            path: '/category/:id',
+            name: 'category',
+            component: () =>
+                import(/* webpackChunkName: "category" */ "../views/TheCategory.vue")
+        },
         // {
         //     path: '/newslist',
         //     name: 'newslist',

@@ -24,7 +24,9 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-for="item in categories" :key="item.id">
-                                    <a class="dropdown-item" href="#">{{ item.name }}</a>
+                                    <router-link class="dropdown-item" :to="{ name: 'category', params: { id: item.id } }">
+                                        {{ item.name }}
+                                    </router-link>
                                 </li>
                             </ul>
                         </li>
@@ -59,7 +61,7 @@ export default {
         categoryApi
             .getCategory()
             .then(response => {
-                this.categories = response.data
+                this.categories = response.data.categories
             })
             .catch(error => alert(error))
     },
