@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container-fluid p-0">
       <TheHeader/>
-      <div class="container mt-3 shadow-sm bg-white px-4">
+      <div class="container mt-3 shadow bg-white px-4">
           <router-view/>
       </div>
   </div>
@@ -17,9 +17,3 @@ export default {
   }
 }
 </script>
-
-<style>
-body {
-  background-color: #f4f4f4;
-}
-</style>

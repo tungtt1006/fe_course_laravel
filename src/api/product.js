@@ -6,5 +6,8 @@ export const productApi = {
     },
     getCategoryProducts(categoryId) {
         return coreApi.get('categories/' + categoryId + '/products')
-    }
+    },
+    getProduct(id) {
+        return coreApi.get('products/' + id)
+    },
 }

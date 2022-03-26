@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <a href="" class="card text-black text-decoration-none shadow-sm">
+        <router-link class="card text-black text-decoration-none shadow-sm" :to="{ name: 'product', params: { id: item.id } }">
             <img src="" class="card-img-top border-bottom" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
@@ -10,7 +10,7 @@
                     {{ discountPrice }} VND
                 </p>
             </div>
-        </a>
+        </router-link>
     </div>
 </template>
 

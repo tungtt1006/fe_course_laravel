@@ -15,7 +15,13 @@ export default new Router({
             path: '/category/:id',
             name: 'category',
             component: () =>
-                import(/* webpackChunkName: "category" */ "../views/TheCategory.vue")
+                import(/* webpackChunkName: "category" */ "../views/CategoryDetail.vue")
+        },
+        {
+            path: '/product/:id',
+            name: 'product',
+            component: () =>
+                import(/* webpackChunkName: "detailcourse" */ "../views/ProductDetail.vue")
         },
         // {
         //     path: '/newslist',
@@ -34,12 +40,6 @@ export default new Router({
         //     name: 'detailuser',
         //     component: () =>
         //         import(/* webpackChunkName: "detailuser" */ "../views/DetailUser.vue")
-        // },
-        // {
-        //     path: '/detailcourse/:id',
-        //     name: 'detailcourse',
-        //     component: () =>
-        //         import(/* webpackChunkName: "detailcourse" */ "../views/DetailCourse.vue")
         // },
         // {
         //     path: '/register',
