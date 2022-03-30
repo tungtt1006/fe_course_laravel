@@ -1,25 +1,11 @@
-/* eslint-disable */ 
-function validatePassword(password) {
-    if ( 
-        password.length >= 8 
-        && password.length < 11 
-        && password != ''
-    ) {
-        return true
-    } 
-    return false
-    
+/* eslint-disable */
+function isPassword(password) {
+    return password.length >= 8 && password.length < 11 && password != ''
 }
 
-function validateEmail(email) {
+function isEmail(email) {
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    if (
-        pattern.test(email)
-        && email != ''
-    ) {
-        return true
-    }
-    return false
+    return pattern.test(email) && email != ''
 }
 
 function validatePhoneNumber(phoneNumber) {
@@ -61,8 +47,8 @@ function removeAscent (str) {
 }
 
 export {
-    validatePassword,
-    validateEmail,
+    isPassword,
+    isEmail,
     validateName,
     validatePhoneNumber
 }

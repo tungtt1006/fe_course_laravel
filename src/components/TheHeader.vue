@@ -38,9 +38,12 @@
                         </li>
                     </ul>
                 </div>
-                <div></div>
-                <div class="pe-3">
-                    <a class="text-white text-decoration-none" href="">Đăng nhập /</a>
+                <div class="pe-3" v-if="Object.keys(user).length !== 0">
+                    <a class="text-white text-decoration-none" href="">{{ user.email }} / </a>
+                    <a class="text-white text-decoration-none" href="" @click.prevent="logout()">Đăng xuất</a>
+                </div>
+                <div class="pe-3" v-else>
+                    <router-link class="text-white text-decoration-none" :to="{ name: 'login' }">Đăng nhập / </router-link>
                     <a class="text-white text-decoration-none" href="">Đăng kí</a>
                 </div>
             </div>
@@ -50,6 +53,8 @@
 
 <script>
 import { categoryApi } from '@/api/category.js'
+import { authApi } from '@/api/auth.js'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     data() {
@@ -58,12 +63,36 @@ export default {
         }
     },
     created() {
+        let login = JSON.parse(localStorage.getItem('login'))
+        if (login) {
+            this.setUser({ email: login.email })
+        }
         categoryApi
             .getCategory()
             .then(response => {
                 this.categories = response.data.categories
             })
             .catch(error => alert(error))
+    },
+    computed: {
+        ...mapGetters(['user']),
+    },
+    methods: {
+        ...mapActions(['setUser']),
+        logout() {
+            if (Object.keys(this.user).length !== 0) {
+                authApi
+                    .logout()
+                    .then(response => {
+                        console.log(response.data)
+                        localStorage.removeItem('login')
+                        this.setUser({})
+                    })
+                    .catch(() => {
+
+                    })
+            }
+        }
     },
 }
 </script>
