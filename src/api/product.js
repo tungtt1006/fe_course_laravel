@@ -10,4 +10,7 @@ export const productApi = {
     getProduct(id) {
         return coreApi.get('products/' + id)
     },
+    registerProduct(obj) {
+        return coreApi.postAuth('orders', obj)
+    }
 }

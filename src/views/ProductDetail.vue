@@ -78,7 +78,7 @@
                         <li class="list-group-item border-0">Dự kiến bắt đầu: <b class="fs-5">{{ theClass.start_day }}</b></li>
                     </ul>
                     <div class="card-body text-center">
-                        <button type="button" class="btn btn-success w-100">Đăng kí học</button>
+                        <button type="button" class="btn btn-success w-100" @click="registerProduct()">Đăng kí học</button>
                     </div>
                   </div>
             </div>
@@ -88,6 +88,7 @@
 
 <script>
 import { productApi } from '@/api/product.js'
+import { mapGetters } from 'vuex'
 
 export default {
     data() {
@@ -113,40 +114,45 @@ export default {
             .then(response => {
                 this.product = response.data.product
                 this.theClass = response.data.class
-                console.log(response.data.class)
                 this.teacher = response.data.class.teacher
             })
     },
+    computed: {
+        ...mapGetters(['user']),
+    },
     methods: {
-        // registerCourse() {
-        //     clearTimeout(this.timeOut);
-        //     this.isLoading = true;
-        //     this.timeOut = setTimeout(() => {
-        //         axios
-        //         .post('http://localhost/product_laravel/public/api/order/store', {
-        //             product_id: this.product.id,
-        //             customer_id: this.user.id,
-        //             discount_id: this.discountId,
-        //             price: this.isShow == true ? (this.product.price * (100-this.product.discount) /100) : this.newPrice
-        //         })
-        //         .then(response => { 
-        //             let res = response.data;
-        //             if(res.status == "200") { 
-        //                 this.isShow = true;
-        //                 this.isSuccess = true;
-        //                 this.isDisableCode = false;
-        //                 this.isLoading = false;
-        //             }
-        //        });
-        //     }, 300);
-        // },
+        registerProduct() {
+            if (Object.keys(this.user).length === 0) {
+                alert("Bạn chưa đăng nhập")
+                this.$router.push('/login')
+                return
+            }
+            clearTimeout(this.timeOut)
+            this.isLoading = true
+            this.timeOut = setTimeout(() => {
+                productApi
+                    .registerProduct({
+                        class_id: this.theClass.id,
+                        price: this.product.price,
+                    })
+                    .then(response => {
+                        console.log(response.data)
+                    })
+                    .catch(() => {
+                        alert("Đăng kí thất bại")
+                    })
+                    .finally(() => {
+                        this.isLoading = false
+                    })
+            }, 300)
+        },
         // sendCode() {
         //     if(this.code != '') {
         //         clearTimeout(this.timeOut);
         //         this.timeOut = setTimeout(() => {
         //             axios
         //             .get('http://localhost/product_laravel/public/api/discount/'+ this.user.id + '/' + this.code)
-        //             .then(response => { 
+        //             .then(response => {
         //                 let res = response.data;
         //                 if(res.status == 200) {
         //                     if(res.price == null) {
@@ -155,7 +161,7 @@ export default {
         //                         return;
         //                     } else {
         //                         this.newPrice = this.product.price * (100-this.product.discount) /100;
-        //                         this.discountId = res.price.id; 
+        //                         this.discountId = res.price.id;
 
         //                         if(res.price.condition == 2) {
         //                             this.newPrice = this.newPrice - res.price.number;
