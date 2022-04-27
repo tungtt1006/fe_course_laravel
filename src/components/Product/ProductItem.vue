@@ -1,14 +1,12 @@
 <template>
-    <div class="col">
+    <div class="col product-item">
         <router-link class="card text-black text-decoration-none shadow-sm" :to="{ name: 'product', params: { id: item.id } }">
-            <img src="" class="card-img-top border-bottom" alt="...">
+            <img :src="item.photo_url" class="card-img-top border-bottom" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text">{{ item.description }}</p>
+                <p class="card-text product-item-description">{{ item.description }}</p>
                 <p class="mt-5 mb-0 text-decoration-line-through text-muted">{{ formatNumber() }} VND</p>
-                <p class="mt-0 fs-5 fw-bolder">
-                    {{ discountPrice }} VND
-                </p>
+                <p class="mt-0 fs-5 fw-bolder">{{ discountPrice }} VND</p>
             </div>
         </router-link>
     </div>
@@ -40,5 +38,13 @@ export default {
 <style scoped>
 a:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+}
+.product-item .product-item-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 </style>

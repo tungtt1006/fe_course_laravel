@@ -12,7 +12,7 @@
                     Register Successfully - Check your mail now!!!!
                 </div>
 
-                <h1 class="mt-4 fw-normal">{{ product.name }}</h1>
+                <h1 class="mt-4 fw-bolder text-success">{{ product.name }}</h1>
                 <div class="w-100 text-break">{{ product.description }}</div>
 
                 <h1 class="mt-4 fw-normal">Nội dung khóa học</h1>
@@ -138,8 +138,8 @@ export default {
                     .then(response => {
                         console.log(response.data)
                     })
-                    .catch(() => {
-                        alert("Đăng kí thất bại")
+                    .catch(error => {
+                        alert(error.response.data.message)
                     })
                     .finally(() => {
                         this.isLoading = false

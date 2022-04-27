@@ -45,11 +45,11 @@
             </div>
                 <div class="row text-center mt-5" style="font-size: 17px;">
                     <span>Bạn chưa có tài khoản?</span>
-                    <router-link 
+                    <router-link
                         class="link_register"
-                        :to="{ 
+                        :to="{
                             name: 'register',
-                            params: { moveTo: moveTo } 
+                            params: { moveTo: moveTo }
                         }"
                     >
                         Bấm vào đây để đăng ký
@@ -70,7 +70,7 @@ export default {
         return {
             isSuccess: false,
             isFail:false,
-            email: 'tung2000@gmail.com',
+            email: 'smraz@example.com',
             password: '12345678',
             res: {},
             isNoti: false,
@@ -125,6 +125,7 @@ export default {
                 })
                 .catch(() => {
                     self.isFail = true
+                    self.isRunning = false
                 })
         }
     },

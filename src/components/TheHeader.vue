@@ -39,8 +39,19 @@
                     </ul>
                 </div>
                 <div class="pe-3" v-if="Object.keys(user).length !== 0">
-                    <a class="text-white text-decoration-none" href="">{{ user.email }} / </a>
-                    <a class="text-white text-decoration-none" href="" @click.prevent="logout()">Đăng xuất</a>
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.email }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a class="dropdown-item" type="button" href="#">Thông tin cá nhân</a></li>
+                            <li>
+                                <router-link class="dropdown-item" :to="{ name: 'schedule' }">Lịch học</router-link>
+                            </li>
+                            <li><a class="dropdown-item" type="button" href="#" @click.prevent="logout()">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                    <a class="text-white text-decoration-none" href="" @click.prevent="logout()"></a>
                 </div>
                 <div class="pe-3" v-else>
                     <router-link class="text-white text-decoration-none" :to="{ name: 'login' }">Đăng nhập / </router-link>
