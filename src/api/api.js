@@ -42,9 +42,19 @@ async function postAuth(action, object) {
     })
 }
 
+async function getAuth(action) {
+    let login = JSON.parse(localStorage.getItem('login'))
+    let token = login.token
+    return await api.get(action, { headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
 export const coreApi = {
     get,
     put,
     post,
-    postAuth
+    postAuth,
+    getAuth
 }
