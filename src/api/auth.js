@@ -8,6 +8,9 @@ export const authApi = {
         return coreApi.post('register', formData)
     },
     logout() {
-        return coreApi.postAuth('logout')
+        return coreApi.getAuth('logout')
+    },
+    authHealth() {
+        return coreApi.getAuth('auth/health')
     }
 }

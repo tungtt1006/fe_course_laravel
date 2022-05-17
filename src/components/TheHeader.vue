@@ -6,11 +6,11 @@
             </div>
             <div class="col-md-2 ps-3">
                 <p class="m-0 fw-thin">Email</p>
-                <p class="m-0 fs-5 fw-normal">team13@gmail.com</p>
+                <p class="m-0 fs-5 fw-bolder">toilatung52@gmail.com</p>
             </div>
             <div class="col-md-2 ps-5">
-                <p class="m-0 fw-thin">Điện thoại</p>
-                <p class="m-0 fs-5 fw-normal">0968.68.68.68</p>
+                <p class="m-0 fw-n">Điện thoại</p>
+                <p class="m-0 fs-5 fw-bolder">(+84) 989842021</p>
             </div>
         </nav>
         <nav class="navbar navbar-expand-lg bg-success">
@@ -74,34 +74,40 @@ export default {
         }
     },
     created() {
-        let login = JSON.parse(localStorage.getItem('login'))
-        if (login) {
-            this.setUser({ email: login.email })
-        }
-        categoryApi
-            .getCategory()
-            .then(response => {
-                this.categories = response.data.categories
-            })
-            .catch(error => alert(error))
+        this.checkAuth()
+        this.getCategory()
     },
     computed: {
         ...mapGetters(['user']),
     },
     methods: {
         ...mapActions(['setUser']),
-        logout() {
-            if (Object.keys(this.user).length !== 0) {
-                authApi
-                    .logout()
-                    .then(response => {
-                        console.log(response.data)
-                        localStorage.removeItem('login')
-                        this.setUser({})
-                    })
-                    .catch(() => {
-
-                    })
+        async checkAuth() {
+            try {
+                await authApi.authHealth()
+                let login = JSON.parse(localStorage.getItem('login'))
+                this.setUser({ email: login.email })
+            } catch(err) {
+                console.log(err)
+            }
+        },
+        async getCategory() {
+            try {
+                const res = await categoryApi.getCategory()
+                this.categories = res.data.categories
+            } catch(err) {
+                alert(err)
+            }
+        },
+        async logout() {
+            const email = this.user.email
+            try {
+                this.setUser({})
+                await authApi.logout()
+                localStorage.removeItem('login')
+            } catch(err) {
+                this.setUser({ email: email})
+                console.log(err)
             }
         }
     },

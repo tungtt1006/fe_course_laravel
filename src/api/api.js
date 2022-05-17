@@ -2,9 +2,6 @@ import axios from 'axios'
 
 const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api/',
-    // headers: {
-    //     Authorization: 'Bearer ' + localStorage.getItem('jwt')
-    // }
 })
 api.defaults.headers.post['Content-Type'] = 'multipart/form-data'
 
@@ -31,8 +28,7 @@ async function post(action, object) {
 
 async function postAuth(action, object) {
     let formData = new FormData()
-    let login = JSON.parse(localStorage.getItem('login'))
-    let token = login.token
+    const token = getToken()
     for (const property in object) {
         formData.append(property, object[property])
     }
@@ -43,12 +39,19 @@ async function postAuth(action, object) {
 }
 
 async function getAuth(action) {
-    let login = JSON.parse(localStorage.getItem('login'))
-    let token = login.token
+    const token = getToken()
     return await api.get(action, { headers: {
             Authorization: 'Bearer ' + token
         }
     })
+}
+
+function getToken() {
+    let login = JSON.parse(localStorage.getItem('login'))
+    if (login) {
+        return login.token
+    }
+    return ''
 }
 
 export const coreApi = {

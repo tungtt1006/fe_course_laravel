@@ -1,12 +1,12 @@
 <template>
-    <div 
+    <div
         class="container-fluid"
         style="background-color: white;"
     >
         <div class="row" style="height: 600px;overflow: hidden;">
             <div class="col-5 img_register">
-                <img 
-                    :src="require(`@/assets/images/register.jpg`)" 
+                <img
+                    :src="require(`@/assets/images/register.jpg`)"
                     alt="Picture register die"
                     style="width: 100%;"
                 >
@@ -17,15 +17,15 @@
                     Đăng Kí Ngay
                 </h1>
                 <div class="row ms-2" style="height:55px;">
-                    <div 
-                        class="alert alert-success mh-100 alert_custom" 
-                        role="alert" 
+                    <div
+                        class="alert alert-success mh-100 alert_custom"
+                        role="alert"
                         v-if="isSuccess"
                     >
                         <b>Đăng kí thành công</b>
                     </div>
-                    <div 
-                        class="alert alert-danger mh-100 alert_custom" 
+                    <div
+                        class="alert alert-danger mh-100 alert_custom"
                         role="alert"
                         v-if="isFail"
                     >
@@ -53,7 +53,7 @@
                         <p class="error" v-else style="color: white;">T</p>
                     </div>
                     <div class="col-1"></div>
-                    <div class="col-5 input__custom"> 
+                    <div class="col-5 input__custom">
                         <input type="password" v-model="rePassword" placeholder="Nhập lại mật khẩu" required>
                         <p class="error" v-if="repasswordError" style="color: red;">Mật khẩu không khớp</p>
                         <p class="error" v-else style="color: white;">T</p>
@@ -84,9 +84,9 @@
                 </div>
                 <div class="row pt-5">
                     <div class="col-12 text-center">
-                        <button 
-                            type="button" 
-                            class="btn btn_register" 
+                        <button
+                            type="button"
+                            class="btn btn_register"
                             @click="signUp()"
                             :disabled="isRunning"
                         >
@@ -98,7 +98,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import util from '@/util/util.js'
 import { authApi } from '@/api/auth.js'
@@ -123,13 +123,13 @@ export default {
             phoneNumberError: false,
             addressError: false,
             isRunning: false
-        }     
+        }
     },
     methods: {
-        signUp() { 
+        signUp() {
             if(
-                this.nameError 
-                || this.emailError 
+                this.nameError
+                || this.emailError
                 || this.passwordError
                 || this.repasswordError
                 || this.phoneNumberError
@@ -137,7 +137,7 @@ export default {
             )  {
                 return
             }
-            
+
             this.isRunning = true
             let k = {
                 name: this.name,
@@ -148,8 +148,8 @@ export default {
                 gender: this.gender,
                 address: this.address
             }
-            
-            authApi.register(k).then(response => { 
+
+            authApi.register(k).then(response => {
                 if(response.status == 201) {
                     this.isSuccess = true
                     setTimeout(() => {
@@ -237,4 +237,3 @@ export default {
     width: 90%;
 }
 </style>
-  
