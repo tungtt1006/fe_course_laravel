@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="product-detail">
         <div v-if="isLoading" class="text-center" style="height: 400px;padding-top: 150px;">
             <div class="spinner-border text-success" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -15,54 +15,45 @@
                 <h1 class="mt-4 fw-bolder text-success">{{ product.name }}</h1>
                 <div class="w-100 text-break">{{ product.description }}</div>
 
-                <h1 class="mt-4 fw-normal">Nội dung khóa học</h1>
+                <h2 class="mt-4 fw-normal">Nội dung khóa học</h2>
                 <div class="w-100">
                     <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                    <span class="badge rounded-pill bg-success fs-6 me-2">Chương 1</span>Học chút chút
+                        <div
+                            class="accordion-item"
+                            v-for="(item, index) in product.content"
+                            :key="item.id"
+                        >
+                            <h2 class="accordion-header">
+                                <button
+                                    class="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    :data-bs-target="'#panelsStayOpen-collapse' + index"
+                                    aria-expanded="true"
+                                    :aria-controls="'panelsStayOpen-collapse' + index"
+                                >
+                                    <span class="badge rounded-pill bg-success fs-6 me-2">Chương {{ index + 1 }}</span>
+                                    <b class="text-dark">{{ item.title }}</b>
                                 </button>
                             </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse ps-5" aria-labelledby="panelsStayOpen-headingOne">
+                            <div :id="'panelsStayOpen-collapse' + index" class="accordion-collapse collapse ps-5" :aria-labelledby="'panelsStayOpen-heading' + index">
                                 <div class="accordion-body border-start border-success">
                                     <ul class="list-group">
-                                        <li class="list-group-item border-0">&#9989; An item</li>
-                                        <li class="list-group-item border-0">&#9989; A second item</li>
-                                        <li class="list-group-item border-0">&#9989; A third item</li>
-                                        <li class="list-group-item border-0">&#9989; A fourth item</li>
-                                        <li class="list-group-item border-0">&#9989; And a fifth one</li>
+                                        <li
+                                            class="list-group-item border-0"
+                                            v-for="(subItem, subIndex) in item.content"
+                                            :key="subIndex"
+                                        >
+                                            &#9989; {{ subItem }}
+                                        </li>
                                       </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                              Accordion Item #2
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                            <div class="accordion-body">
-                              <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                              Accordion Item #3
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                            <div class="accordion-body">
-                              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                          </div>
-                        </div>
                       </div>
                 </div>
             </div>
+
             <div class="col-4 p-4">
                 <div class="card border-0">
                     <img src="" class="card-img-top" alt="...">
@@ -109,18 +100,24 @@ export default {
         }
     },
     created() {
-        productApi
-            .getProduct(this.$route.params.id)
-            .then(response => {
-                this.product = response.data.product
-                this.theClass = response.data.class
-                this.teacher = response.data.class.teacher
-            })
+        this.getProduct()
     },
     computed: {
         ...mapGetters(['user']),
     },
     methods: {
+        async getProduct() {
+            try {
+                const res = await productApi.getProduct(this.$route.params.id)
+                this.product = res.data.product
+                this.theClass = res.data.class
+                this.teacher = res.data.class.teacher
+                this.product.content = JSON.parse(this.product.content)
+                console.log(this.product)
+            } catch(err) {
+                console.log(err)
+            }
+        },
         registerProduct() {
             if (Object.keys(this.user).length === 0) {
                 alert("Bạn chưa đăng nhập")
@@ -145,44 +142,16 @@ export default {
                         this.isLoading = false
                     })
             }, 300)
-        },
-        // sendCode() {
-        //     if(this.code != '') {
-        //         clearTimeout(this.timeOut);
-        //         this.timeOut = setTimeout(() => {
-        //             axios
-        //             .get('http://localhost/product_laravel/public/api/discount/'+ this.user.id + '/' + this.code)
-        //             .then(response => {
-        //                 let res = response.data;
-        //                 if(res.status == 200) {
-        //                     if(res.price == null) {
-        //                         alert("Your code has been used");
-        //                         this.code = '';
-        //                         return;
-        //                     } else {
-        //                         this.newPrice = this.product.price * (100-this.product.discount) /100;
-        //                         this.discountId = res.price.id;
-
-        //                         if(res.price.condition == 2) {
-        //                             this.newPrice = this.newPrice - res.price.number;
-        //                         } else if(res.price.condition == 1) {
-        //                             this.newPrice = this.newPrice * (100 - res.price.number) /100;
-        //                         }
-        //                         this.placeholder = "Enter your code";
-        //                         this.isShow = false;
-        //                         this.isDisableCode = true;
-        //                         this.code = '';
-        //                     }
-        //                 } else {
-        //                     this.placeholder = "Your code is wrong";
-        //                     this.code = "";
-        //                 }
-        //             });
-        //         }, 300)
-        //     } else {
-        //         return;
-        //     }
-        // }
+        }
     }
 }
 </script>
+
+<style scoped>
+#product-detail >>> .accordion-button:not(.collapsed) {
+    background-color: white;
+}
+#product-detail >>> .accordion-button:focus {
+    box-shadow: none;
+}
+</style>
