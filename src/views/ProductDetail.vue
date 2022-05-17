@@ -65,7 +65,7 @@
             </div>
             <div class="col-4 p-4">
                 <div class="card border-0">
-                    <img src="@/assets/images/htmlcss.png" class="card-img-top" alt="...">
+                    <img src="" class="card-img-top" alt="...">
                     <div class="card-body text-center">
                         <p class="card-text fs-4 text-muted text-decoration-line-through m-0">{{ new Intl.NumberFormat().format(product.price) }} VND</p>
                         <h3 class="card-title m-0">{{ new Intl.NumberFormat().format(product.price) }} VND</h3>

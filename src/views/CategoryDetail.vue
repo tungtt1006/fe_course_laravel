@@ -64,7 +64,7 @@
                 :to="{ name: 'category', params: { id: item.id } }"
                 id="another-category"
             >
-                <img src="@/assets/images/htmlcss.png" class="card-img-top" alt="...">
+                <img src="" class="card-img-top" alt="...">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-10">

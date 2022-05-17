@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-white">
+    <div class="bg-white shadow">
         <nav class="navbar navbar-expand-sm">
             <div class="col-md-8">
-                <h1 class="ps-3 m-0 fw-bolder text-success">&lt;!--XT--&gt;</h1>
+                <h1 class="ps-3 m-0 fw-bolder text-success">XT</h1>
             </div>
             <div class="col-md-2 ps-3">
                 <p class="m-0 fw-thin">Email</p>
