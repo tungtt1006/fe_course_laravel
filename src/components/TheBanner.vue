@@ -1,9 +1,6 @@
 <template>
-    <div
-        class="row pt-4"
-        style="padding-bottom: 30px;"
-    >
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="row pt-4">
+        <div id="carouselExampleControls" class="carousel slide p-0 shadow-sm" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div
                     class="carousel-item"

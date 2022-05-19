@@ -70,9 +70,9 @@
                         <div class="col-md-10">
                             <span class="card-title">{{ item.name }}</span>
                         </div>
-                        <div class="col-md-2">
+                        <!-- <div class="col-md-2">
                             <font-awesome-icon :icon="arrowRight" size="lg" font-weight="100" />
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </router-link>

@@ -55,7 +55,7 @@
                 </div>
 
                 <h2 class="mt-5 fw-normal">Chứng chỉ sau khóa học</h2>
-                <div class="row mt-3">
+                <div class="row mt-3" v-if="certificate">
                     <div class="col-4">
                         <img :src="certificate.photo" class="card-img-top shadow-sm border border-success" alt="...">
                     </div>
@@ -64,6 +64,7 @@
                     <p class="text-start">{{ certificate.description }}</p>
                     </div>
                 </div>
+                <p v-else><b>- Sẽ được cập nhật trong thời gian tới ...</b></p>
             </div>
 
             <div class="col-4 p-4">
@@ -106,7 +107,7 @@ export default {
                 content: []
             },
             isSuccess: false,
-            theClass: {},
+            theClass: null,
             teacher: {},
             certificate: {},
             code: '',

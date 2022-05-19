@@ -1,40 +1,45 @@
 <template>
-    <div class="pt-3">
+    <div class="py-3">
         <h1 class="text-success text-center">Lớp đang học</h1>
-        <div class="row mt-4">
-            <div class="col-4">
-                <p>Tên lớp: <b>{{ theClass.class_name}}</b></p>
-                <p>Khóa học: <b>{{ theClass.product.name }}</b></p>
+        <div v-if="theClass">
+            <div class="row mt-4">
+                <div class="col-4">
+                    <p>Tên lớp: <b>{{ theClass.class_name}}</b></p>
+                    <p>Khóa học: <b>{{ theClass.product.name }}</b></p>
+                </div>
+                <div class="col-4">
+                    <p>Ngày mở lớp: <b>{{ theClass.start_day }}</b></p>
+                    <p>Số buổi: <b>{{ theClass.sessions }}</b></p>
+                </div>
+                <div class="col-4">
+                    <p>Thứ học: <b>{{ theClass.days_of_week }}</b></p>
+                    <p>Thời gian học: <b>{{ theClass.time_in }} ~ {{ theClass.time_out }}</b></p>
+                </div>
             </div>
-            <div class="col-4">
-                <p>Ngày mở lớp: <b>{{ theClass.start_day }}</b></p>
-                <p>Số buổi: <b>{{ theClass.sessions }}</b></p>
+            <div class="row mx-3 mt-4">
+                <div class="col"></div>
+                <div class="col" v-for="(item, index) in days" :key="index">
+                    <p class="text-center m-0 fw-normal fw-bolder">{{ getFormatedDate(item) }}</p>
+                </div>
+                <div class="col"></div>
             </div>
-            <div class="col-4">
-                <p>Thứ học: <b>{{ theClass.days_of_week }}</b></p>
-                <p>Thời gian học: <b>{{ theClass.time_in }} ~ {{ theClass.time_out }}</b></p>
+            <div class="row mx-3">
+                <div class="col text-center">
+                    <a href="" @click.prevent="prevWeek()" class="text-success fs-2"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                </div>
+                <div class="col border border-primary p-2" v-for="(item, index) in days" :key="index">
+                    <p class="text-center m-0 fw-bolder" v-if="periods[item]">Buổi {{ periods[item].number }}</p>
+                    <p class="text-center m-0 fw-bolder text-secondary" v-if="periods[item]">
+                        {{ periods[item].time_in.slice(0, 5) + ' - ' + periods[item].time_out.slice(0, 5) }}
+                    </p>
+                </div>
+                <div class="col text-center">
+                    <a href="" @click.prevent="nextWeek()" class="text-success fs-2"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
             </div>
         </div>
-        <div class="row mx-3 mt-4">
-            <div class="col"></div>
-            <div class="col" v-for="(item, index) in days" :key="index">
-                <p class="text-center m-0 fw-normal fw-bolder">{{ getFormatedDate(item) }}</p>
-            </div>
-            <div class="col"></div>
-        </div>
-        <div class="row mx-3">
-            <div class="col text-center">
-                <a href="" @click.prevent="prevWeek()" class="text-success fs-2"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-            </div>
-            <div class="col border border-primary p-2" v-for="(item, index) in days" :key="index">
-                <p class="text-center m-0 fw-bolder" v-if="periods[item]">Buổi {{ periods[item].number }}</p>
-                <p class="text-center m-0 fw-bolder text-secondary" v-if="periods[item]">
-                    {{ periods[item].time_in.slice(0, 5) + ' - ' + periods[item].time_out.slice(0, 5) }}
-                </p>
-            </div>
-            <div class="col text-center">
-                <a href="" @click.prevent="nextWeek()" class="text-success fs-2"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-            </div>
+        <div v-else>
+            <h2 class="text-center m-5">Hiện tại bạn chưa trong lớp học nào</h2>
         </div>
     </div>
 </template>
@@ -47,7 +52,7 @@ import moment from 'moment';
 export default {
     data() {
         return {
-            theClass: {},
+            theClass: null,
             from: moment().format('YYYY-MM-DD'),
             to: moment().add('days', 6).format('YYYY-MM-DD'),
             periods: [],
@@ -55,7 +60,6 @@ export default {
         }
     },
     created() {
-        this.theClass.product = {}
         this.getLearningClass()
         this.setDays()
     },
