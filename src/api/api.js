@@ -46,6 +46,14 @@ async function getAuth(action) {
     })
 }
 
+async function deleteAuth(action) {
+    const token = getToken()
+    return await api.delete(action, { headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
 function getToken() {
     let login = JSON.parse(localStorage.getItem('login'))
     if (login) {
@@ -59,5 +67,6 @@ export const coreApi = {
     put,
     post,
     postAuth,
-    getAuth
+    getAuth,
+    deleteAuth
 }
