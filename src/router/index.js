@@ -33,37 +33,13 @@ export default new Router({
             path: '/schedule',
             name: 'schedule',
             component: () =>
-                import(/* webpackChunkName: "login" */ "../views/TheSchedule.vue")
+                import(/* webpackChunkName: "schedule" */ "../views/TheSchedule.vue")
         },
-        // {
-        //     path: '/newslist',
-        //     name: 'newslist',
-        //     component: () =>
-        //         import(/* webpackChunkName: "newslist" */ "../views/NewsList.vue")
-        // },
-        // {
-        //     path: '/detailnew/:id',
-        //     name: 'detailnew',
-        //     component: () =>
-        //         import(/* webpackChunkName: "detailnew" */ "../views/DetailNew.vue")
-        // },
-        // {
-        //     path: '/detailuser',
-        //     name: 'detailuser',
-        //     component: () =>
-        //         import(/* webpackChunkName: "detailuser" */ "../views/DetailUser.vue")
-        // },
-        // {
-        //     path: '/register',
-        //     name: 'register',
-        //     component: () =>
-        //         import(/* webpackChunkName: "register" */ "../views/Register.vue")
-        // },
-        // {
-        //     path: '/aboutus',
-        //     name: 'aboutus',
-        //     component: () =>
-        //         import(/* webpackChunkName: "aboutus" */ "../views/AboutUs.vue")
-        // },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: () =>
+                import(/* webpackChunkName: "profile" */ "../views/TheProfile.vue")
+        },
     ]
 })

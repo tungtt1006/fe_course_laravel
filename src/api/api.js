@@ -38,6 +38,19 @@ async function postAuth(action, object) {
     })
 }
 
+async function putAuth(action, object) {
+    let formData = new FormData()
+    const token = getToken()
+    formData.append('_method', 'PUT')
+    for (const property in object) {
+        formData.append(property, object[property])
+    }
+    return await api.post(action, formData, { headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
 async function getAuth(action) {
     const token = getToken()
     return await api.get(action, { headers: {
@@ -68,5 +81,6 @@ export const coreApi = {
     post,
     postAuth,
     getAuth,
+    putAuth,
     deleteAuth
 }

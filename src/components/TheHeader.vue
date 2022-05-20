@@ -44,7 +44,9 @@
                             {{ user.email }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <li><a class="dropdown-item" type="button" href="#">Thông tin cá nhân</a></li>
+                            <li>
+                                <router-link class="dropdown-item" :to="{ name: 'profile' }">Thông tin cá nhân</router-link>
+                            </li>
                             <li>
                                 <router-link class="dropdown-item" :to="{ name: 'schedule' }">Lịch học</router-link>
                             </li>

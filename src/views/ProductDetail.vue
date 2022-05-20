@@ -156,7 +156,6 @@ export default {
                 productApi
                     .registerProduct({
                         class_id: this.theClass.id,
-                        price: this.product.price,
                     })
                     .then(response => {
                         console.log(response.data)

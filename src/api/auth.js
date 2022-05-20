@@ -12,5 +12,8 @@ export const authApi = {
     },
     authHealth() {
         return coreApi.getAuth('auth/health')
+    },
+    getUser() {
+        return coreApi.getAuth('users')
     }
 }
