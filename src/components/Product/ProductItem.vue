@@ -1,5 +1,5 @@
 <template>
-    <div class="col product-item">
+    <div class="col product-item mt-2">
         <router-link class="card text-black text-decoration-none shadow-sm" :to="{ name: 'product', params: { id: item.id } }">
             <img :src="item.photo_url" class="card-img-top border-bottom" alt="...">
             <div class="card-body">
