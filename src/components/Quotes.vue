@@ -1,24 +1,31 @@
 <template>
-    <div class="pb-5">
-        <Banner />
-        <ProductList :products="hightlightProducts" class="mt-5" />
-        <ProductList :products="newestProducts" class="mt-5" />
-        <Quotes />
+    <div class="container-fluid mt-5">
+        <div id="demo" class="carousel slide rounded-3" data-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner shadow-sm border rounded-3">
+                <div
+                    class="carousel-item"
+                    :class="(index == 0) ? 'active' : ''"
+                    v-for="(item, index) in data"
+                    :key="index"
+                >
+                    <div class="carousel-caption">
+                        <p>{{ item.content }}</p>
+                        <img :src="item.photo_url">
+                        <div id="image-caption">{{ item.name }}</div>
+                    </div>
+                </div>
+            </div>
+            </div>
     </div>
 </template>
 
 <script>
-import Banner from '@/components/TheBanner.vue'
-import Quotes from '@/components/Quotes.vue'
-import ProductList from '@/components/Product/ProductList.vue'
-import { productApi } from '@/api/product.js'
-
 export default {
-    components: {
-        Banner,
-        ProductList,
-        Quotes
-    },
     data() {
         return {
             categories: [],
@@ -43,22 +50,6 @@ export default {
             ]
         }
     },
-    created() {
-        productApi
-            .getProducts('hightlight')
-            .then(response => {
-                this.hightlightProducts = response.data
-                this.hightlightProducts.title = "Khóa học nổi bật"
-            })
-            .catch(error => console.log(error))
-        productApi
-            .getProducts('newest')
-            .then(response => {
-                this.newestProducts = response.data
-                this.newestProducts.title = "Khóa học mới nhất"
-            })
-            .catch(error => console.log(error))
-    }
 }
 </script>
 
@@ -114,25 +105,5 @@ export default {
         font-size: 0.6rem;
         margin-top: 0.5rem;
     }
-}
-i{
-    background-color: rgb(223, 56, 89);
-    padding: 1.4rem;
-}
-@media(max-width:767px){
-    i{
-        padding: 0.8rem;
-    }
-}
-.carousel-control-prev{
-    justify-content: flex-start;
-}
-
-.carousel-control-next {
-    justify-content: flex-end;
-}
-.carousel-control-prev,.carousel-control-next{
-    transition: none;
-    opacity: unset;
 }
 </style>

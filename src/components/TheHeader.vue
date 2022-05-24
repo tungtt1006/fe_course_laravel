@@ -15,7 +15,7 @@
         </nav>
         <nav class="navbar navbar-expand-lg bg-success">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="">Trang chủ</a>
+                <router-link class="navbar-brand text-white" :to="{ name: 'home' }">Trang chủ</router-link>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
