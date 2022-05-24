@@ -12,5 +12,8 @@ export const productApi = {
     },
     registerProduct(obj) {
         return coreApi.postAuth('orders', obj)
+    },
+    setNotiNewClass(productId) {
+        return coreApi.getAuth('notices/new-class?productId=' + productId)
     }
 }

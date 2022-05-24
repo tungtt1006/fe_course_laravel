@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid mt-5">
-        <div id="demo" class="carousel slide rounded-3" data-ride="carousel">
+       <h1 class="fw-normal fs-1 text-center">Ban điều hành</h1>
+        <div id="demo" class="carousel slide rounded-3 mt-3" data-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#demo" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -55,7 +56,7 @@ export default {
 
 <style scoped>
 #demo{
-    background: linear-gradient(112deg, #ffffff 50%, antiquewhite 50%);
+    background: linear-gradient(112deg, #ffffff 50%, #146c43);
     margin: auto;
 }
 .carousel-caption {

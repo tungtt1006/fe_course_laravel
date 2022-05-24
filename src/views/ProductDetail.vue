@@ -168,8 +168,13 @@ export default {
                     })
             }, 300)
         },
-        setNotify() {
-            alert("Tạo thông báo")
+        async setNotify() {
+            try {
+                await productApi.setNotiNewClass(this.$route.params.id)
+                alert('Để ý hòm thư của bạn nhé')
+            } catch(err) {
+                console.log(err)
+            }
         }
     }
 }
