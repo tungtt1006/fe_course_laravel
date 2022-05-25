@@ -42,10 +42,7 @@
 
         <div class="row text-center mt-5 fs-6">
             <span>Bạn chưa có tài khoản?</span>
-            <router-link
-                class="link_register"
-                :to="{ name: 'register', params: { moveTo: moveTo } }"
-            >
+            <router-link class="link_register text-success" :to="{ name: 'register' }">
                 Bấm vào đây để đăng ký
             </router-link>
         </div>

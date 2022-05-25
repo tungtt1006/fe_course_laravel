@@ -57,7 +57,7 @@
                 </div>
                 <div class="pe-3" v-else>
                     <router-link class="text-white text-decoration-none" :to="{ name: 'login' }">Đăng nhập / </router-link>
-                    <a class="text-white text-decoration-none" href="">Đăng kí</a>
+                    <router-link class="text-white text-decoration-none" :to="{ name: 'register' }">Đăng kí</router-link>
                 </div>
             </div>
         </nav>

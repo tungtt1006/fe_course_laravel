@@ -1,21 +1,14 @@
 <template>
-    <div
-        class="container-fluid"
-        style="background-color: white;"
-    >
-        <div class="row" style="height: 600px;overflow: hidden;">
-            <div class="col-5 img_register">
-                <img
-                    :src="require(`@/assets/images/register.jpg`)"
-                    alt="Picture register die"
-                    style="width: 100%;"
-                >
+    <div class="container-fluid bg-white pt-4 pb-5">
+        <div class="row">
+            <div class="col-5">
+                <div class="logo-holder logo-6 text-center">
+                    <h3>Xuan <span class="text-white">Tung</span></h3>
+                </div>
             </div>
 
-            <div class="col-7 mt-3">
-                <h1 class="text-center" style="font-weight: 400;">
-                    Đăng Kí Ngay
-                </h1>
+            <div class="col-7">
+                <h1 class="text-center text-success">Đăng Kí Ngay</h1>
                 <div class="row ms-2" style="height:55px;">
                     <div
                         class="alert alert-success mh-100 alert_custom"
@@ -36,33 +29,33 @@
                 <div class="row ms-2">
                     <div class="col-5 input__custom">
                         <input type="text" v-model="name" placeholder="Tên" required>
-                        <p class="error" v-if="nameError" style="color: red;">Không nhập quá 20 kí tự, chỉ nhập chữ</p>
+                        <p class="error text-danger" v-if="nameError">Không nhập quá 20 kí tự, chỉ nhập chữ</p>
                         <p class="error" v-else style="color: white;">T</p>
                     </div>
                     <div class="col-1"></div>
                     <div class="col-5 input__custom">
                         <input type="email" v-model="email" placeholder="Email" required>
-                        <p class="error" v-if="emailError" style="color: red;">Nhập chưa đúng định dạng</p>
+                        <p class="error text-danger" v-if="emailError">Nhập chưa đúng định dạng</p>
                         <p class="error" v-else style="color: white;">T</p>
                     </div>
                 </div>
                 <div class="row mt-3 ms-2">
                     <div class="col-5 input__custom">
                         <input type="password" v-model="password" placeholder="Mật khẩu" required>
-                        <p class="error" v-if="passwordError" style="color: red;">Không nhập dưới 8 kí tự & quá 11 kí tự</p>
+                        <p class="error text-danger" v-if="passwordError">Không nhập dưới 8 kí tự & quá 11 kí tự</p>
                         <p class="error" v-else style="color: white;">T</p>
                     </div>
                     <div class="col-1"></div>
                     <div class="col-5 input__custom">
                         <input type="password" v-model="rePassword" placeholder="Nhập lại mật khẩu" required>
-                        <p class="error" v-if="repasswordError" style="color: red;">Mật khẩu không khớp</p>
+                        <p class="error text-danger" v-if="repasswordError">Mật khẩu không khớp</p>
                         <p class="error" v-else style="color: white;">T</p>
                     </div>
                 </div>
                 <div class="row mt-3 ms-2">
                     <div class="col-5 input__custom">
                         <input type="text" v-model="phoneNumber" placeholder="Số điện thoại" required>
-                        <p class="error" v-if="phoneNumberError" style="color: red;">Không nhập chữ, chỉ được nhập 10 số</p>
+                        <p class="error text-danger" v-if="phoneNumberError">Không nhập chữ, chỉ được nhập 10 số</p>
                         <p class="error" v-else style="color: white;">T</p>
                     </div>
                     <div class="col-1"></div>
@@ -78,7 +71,7 @@
                 <div class="row my-4 ms-2">
                     <div class="col-11 input__custom">
                         <input type="text" v-model="address" placeholder="Địa chỉ">
-                        <p class="error" v-if="addressError" style="color: red;">Không nhập quá 100 kí tự</p>
+                        <p class="error text-danger" v-if="addressError">Không nhập quá 100 kí tự</p>
                         <p class="error" v-else style="color: white;">T</p>
                     </div>
                 </div>
@@ -86,7 +79,7 @@
                     <div class="col-12 text-center">
                         <button
                             type="button"
-                            class="btn btn_register"
+                            class="btn btn_register text-white shadow"
                             @click="signUp()"
                             :disabled="isRunning"
                         >
@@ -100,7 +93,7 @@
 </template>
 
 <script>
-import util from '@/util/util.js'
+import { validate } from '@/util/util.js'
 import { authApi } from '@/api/auth.js'
 
 export default {
@@ -164,21 +157,21 @@ export default {
     },
     watch: {
         name(val) {
-            if(!util.validate.validateName(val)) {
+            if(!validate.validateName(val)) {
                 this.nameError = true
             } else {
                 this.nameError = false
             }
         },
         email(val) {
-            if(!util.validate.validateEmail(val)) {
+            if(!validate.isEmail(val)) {
                 this.emailError = true
             } else {
                 this.emailError = false
             }
         },
         password(val) {
-            if(!util.validate.validatePassword(val)) {
+            if(!validate.isPassword(val)) {
                 this.passwordError = true
             } else {
                 this.passwordError = false
@@ -192,7 +185,7 @@ export default {
             }
         },
         phoneNumber(val) {
-            if(!util.validate.validatePhoneNumber(val)) {
+            if(!validate.validatePhoneNumber(val)) {
                 this.phoneNumberError = true
             } else {
                 this.phoneNumberError = false
@@ -210,8 +203,18 @@ export default {
 </script>
 
 <style scoped>
-.img_register {
-    padding:0;height: 100%;
+.logo-6 h3 {
+    color: #00c292;
+    font-family: 'Cinzel', serif;
+    font-weight: 300;
+    font-size: 150px;
+    line-height:1.3;
+}
+.logo-6 h3 span {
+    background-color: #00c292;
+    display: inline-block;
+    line-height: 1.8;
+    padding: 0 16px;
 }
 .input__custom input, .input__custom select {
     font-size: 15px;
@@ -227,11 +230,8 @@ export default {
 }
 .btn_register {
     background-color: #00c292;
-    color: white;
     margin: auto;
     width: 30%;
-    border-radius: 0;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .alert_custom {
     width: 90%;
