@@ -99,6 +99,7 @@
 <script>
 import { productApi } from '@/api/product.js'
 import { mapGetters } from 'vuex'
+import { common } from '@/util/util.js'
 
 export default {
     data() {
@@ -122,6 +123,14 @@ export default {
         }
     },
     created() {
+        const paramsString = new URL(window.location.href.replace('/#', ''))
+        const searchParams = new URLSearchParams(paramsString.search)
+        if (searchParams.has('status') && searchParams.get('status') === 'success') {
+            common.notify('Bạn đă đăng kí thành công!')
+        } else if (searchParams.has('status') && searchParams.get('status') === 'fail') {
+            common.notify('Bạn đăng kí chưa thành công!')
+        }
+
         this.getProduct()
     },
     computed: {
@@ -159,10 +168,10 @@ export default {
             }
             this.isLoading = true
             try {
-                await productApi.registerProduct({
+                const res = await productApi.registerProduct({
                     class_id: this.theClass.id,
                 })
-                alert('Đăng kí khóa học thành công!')
+                window.location.href = res.data.url
             } catch(err) {
                 alert(err.response.data.message)
             }
