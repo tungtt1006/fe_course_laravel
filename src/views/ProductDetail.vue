@@ -71,8 +71,8 @@
                 <div class="card border-0" v-if="theClass">
                     <img :src="product.photo_url" class="card-img-top" alt="...">
                     <div class="card-body text-center">
-                        <p class="card-text fs-4 text-muted text-decoration-line-through m-0">{{ new Intl.NumberFormat().format(product.price) }} VND</p>
-                        <h3 class="card-title m-0">{{ new Intl.NumberFormat().format(product.price) }} VND</h3>
+                        <p class="card-text fs-4 text-muted text-decoration-line-through m-0">{{ formatNumber(product.price) }} VND</p>
+                        <h3 class="card-title m-0">{{ discountPrice }} VND</h3>
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item border-0">Số buổi: <b class="fs-5">{{ theClass.sessions }}</b></li>
@@ -126,8 +126,15 @@ export default {
     },
     computed: {
         ...mapGetters(['user']),
+        discountPrice() {
+            let discountPrice = this.product.price * ((100 - this.product.discount) / 100)
+            return this.formatNumber(discountPrice)
+        }
     },
     methods: {
+        formatNumber(number) {
+            return new Intl.NumberFormat().format(number)
+        },
         async getProduct() {
             try {
                 const res = await productApi.getProduct(this.$route.params.id)
@@ -144,29 +151,22 @@ export default {
                 console.log(err)
             }
         },
-        registerProduct() {
+        async registerProduct() {
             if (Object.keys(this.user).length === 0) {
-                alert("Bạn chưa đăng nhập")
+                alert("Bạn chưa đăng nhập, chuyển tới trang đăng nhập!")
                 this.$router.push('/login')
                 return
             }
-            clearTimeout(this.timeOut)
             this.isLoading = true
-            this.timeOut = setTimeout(() => {
-                productApi
-                    .registerProduct({
-                        class_id: this.theClass.id,
-                    })
-                    .then(response => {
-                        console.log(response.data)
-                    })
-                    .catch(error => {
-                        alert(error.response.data.message)
-                    })
-                    .finally(() => {
-                        this.isLoading = false
-                    })
-            }, 300)
+            try {
+                await productApi.registerProduct({
+                    class_id: this.theClass.id,
+                })
+                alert('Đăng kí khóa học thành công!')
+            } catch(err) {
+                alert(err.response.data.message)
+            }
+            this.isLoading = false
         },
         async setNotify() {
             try {

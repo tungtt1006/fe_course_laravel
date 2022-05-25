@@ -1,12 +1,19 @@
 <template>
     <div class="col product-item mt-2">
-        <router-link class="card text-black text-decoration-none shadow-sm" :to="{ name: 'product', params: { id: item.id } }">
+        <router-link class="card text-black text-decoration-none shadow-sm position-relative" :to="{ name: 'product', params: { id: item.id } }">
+            <span
+                class="badge bg-danger position-absolute shadow p-2"
+                v-if="item.discount > 0"
+                style="top: 5px; left: 5px;"
+            >
+                -{{ item.discount }}%
+            </span>
             <img :src="item.photo_url" class="card-img-top border-bottom" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text product-item-description">{{ item.description }}</p>
-                <p class="mt-5 mb-0 text-decoration-line-through text-muted">{{ formatNumber() }} VND</p>
-                <p class="mt-0 fs-5 fw-bolder">{{ discountPrice }} VND</p>
+                <p class="mt-5 mb-0 text-decoration-line-through text-muted">{{ formatNumber(item.price) }} VND</p>
+                <p class="mt-0 fs-5 fw-bolder text-success">{{ discountPrice }} VND</p>
             </div>
         </router-link>
     </div>
@@ -23,12 +30,12 @@ export default {
     },
     computed: {
         discountPrice() {
-            let discountPrice = this.item.price * ((100 - 70) / 100)
+            let discountPrice = this.item.price * ((100 - this.item.discount) / 100)
             return this.formatNumber(discountPrice)
         }
     },
     methods: {
-        formatNumber(number = this.item.price) {
+        formatNumber(number) {
             return new Intl.NumberFormat().format(number)
         }
     },

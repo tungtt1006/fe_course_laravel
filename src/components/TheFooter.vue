@@ -46,7 +46,7 @@
         </div>
 
         <!-- Copyrights -->
-        <div class="bg-light py-4">
+        <div class="bg-light py-2">
         <div class="container text-center">
             <p class="text-muted mb-0 py-2">© 2022 Phạm Xuân Tùng toàn quyền sở hữu.</p>
         </div>
