@@ -1,5 +1,7 @@
-import * as validate  from './validate.js'
+import * as validate from './validate.js'
+import common from './common.js'
 
-export default {
-    validate
+export {
+    validate,
+    common,
 }

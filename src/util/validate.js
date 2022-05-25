@@ -10,15 +10,15 @@ function isEmail(email) {
 
 function validatePhoneNumber(phoneNumber) {
     const pattern = /^[0-9]+$/
-    if ( 
-        phoneNumber.length == 10 
+    if (
+        phoneNumber.length == 10
         && pattern.test(phoneNumber)
         && phoneNumber != ''
     ) {
         return true
-    } 
+    }
     return false
-    
+
 }
 
 function validateName(name) {

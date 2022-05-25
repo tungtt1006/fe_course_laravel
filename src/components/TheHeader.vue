@@ -20,7 +20,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Khóa học
+                                Danh mục
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-for="item in categories" :key="item.id">
@@ -68,6 +68,7 @@
 import { categoryApi } from '@/api/category.js'
 import { authApi } from '@/api/auth.js'
 import { mapGetters, mapActions } from 'vuex'
+import { common } from '@/util/util.js'
 
 export default {
     data() {
@@ -106,6 +107,14 @@ export default {
             try {
                 this.setUser({})
                 await authApi.logout()
+                common.notify('Đăng xuất thành công!')
+                const routes = [
+                    process.env.VUE_APP_URL + '/schedule',
+                    process.env.VUE_APP_URL + '/profile',
+                ]
+                if (routes.includes(window.location.href)) {
+                    this.$router.push('/')
+                }
                 localStorage.removeItem('login')
             } catch(err) {
                 this.setUser({ email: email})

@@ -17,6 +17,18 @@ export default {
     components: {
         TheHeader,
         TheFooter
+    },
+    created() {
+        this.notifyMe()
+    },
+    methods: {
+        notifyMe() {
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification")
+            } else if (Notification.permission === "denied") {
+                alert("Hãy cho phép mở thông báo")
+            }
+        }
     }
 }
 </script>
