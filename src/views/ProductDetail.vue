@@ -12,7 +12,7 @@
                     Register Successfully - Check your mail now!!!!
                 </div>
 
-                <h1 class="mt-4 fw-bolder text-success">{{ product.name }}</h1>
+                <h1 class="mt-4 display-5 fw-normal text-success">{{ product.name }}</h1>
                 <div class="w-100 text-break">{{ product.description }}</div>
 
                 <h2 class="mt-5 fw-normal">Nội dung khóa học</h2>
@@ -69,7 +69,7 @@
 
             <div class="col-4 p-4">
                 <div class="card border-0" v-if="theClass">
-                    <img :src="product.photo_url" class="card-img-top" alt="...">
+                    <img :src="product.photo_url" class="card-img-top border shadow-sm" alt="...">
                     <div class="card-body text-center">
                         <p class="card-text fs-4 text-muted text-decoration-line-through m-0">{{ formatNumber(product.price) }} VND</p>
                         <h3 class="card-title m-0">{{ discountPrice }} VND</h3>
