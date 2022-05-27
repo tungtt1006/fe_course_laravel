@@ -127,6 +127,9 @@ export default {
         const searchParams = new URLSearchParams(paramsString.search)
         if (searchParams.has('status') && searchParams.get('status') === 'success') {
             common.notify('Bạn đă đăng kí thành công!')
+            productApi.stripeWebhook({
+                class_id: searchParams.get('class'),
+            })
         } else if (searchParams.has('status') && searchParams.get('status') === 'fail') {
             common.notify('Bạn đăng kí chưa thành công!')
         }
