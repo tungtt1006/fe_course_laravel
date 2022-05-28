@@ -1,7 +1,7 @@
 <template>
 <div class="py-3">
     <div class="row">
-        <h1 class="mt-2 text-success">{{ category.name }}</h1>
+        <h1 class="mt-2 display-4 text-success">{{ category.name }}</h1>
         <p>{{ category.description }}</p>
     </div>
 

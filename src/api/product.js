@@ -15,5 +15,8 @@ export const productApi = {
     },
     setNotiNewClass(productId) {
         return coreApi.getAuth('notices/new-class?productId=' + productId)
+    },
+    stripeWebhook(obj) {
+        return coreApi.postAuth('stripe/webhook', obj)
     }
 }

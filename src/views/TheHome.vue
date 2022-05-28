@@ -3,13 +3,13 @@
         <Banner />
         <ProductList :products="hightlightProducts" class="mt-5" />
         <ProductList :products="newestProducts" class="mt-5" />
-        <Quotes />
+        <FounderList />
     </div>
 </template>
 
 <script>
 import Banner from '@/components/TheBanner.vue'
-import Quotes from '@/components/Quotes.vue'
+import FounderList from '@/components/FounderList.vue'
 import ProductList from '@/components/Product/ProductList.vue'
 import { productApi } from '@/api/product.js'
 
@@ -17,7 +17,7 @@ export default {
     components: {
         Banner,
         ProductList,
-        Quotes
+        FounderList
     },
     data() {
         return {

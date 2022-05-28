@@ -9,6 +9,7 @@
                         <th scope="col">Khóa học</th>
                         <th scope="col">Giáo viên</th>
                         <th scope="col">Thời gian học</th>
+                        <th scope="col">Trạng thái đơn</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -18,6 +19,10 @@
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.teacher.name }}</td>
                         <td>{{ item.start_day + ' ~ ' + item.end_day }}</td>
+                        <td>
+                            <span class="badge rounded-pill bg-success" v-if="item.pivot.status">Đã duyệt</span>
+                            <span class="badge rounded-pill bg-danger" v-else>Chưa duyệt</span>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-danger" @click="confirmCancel(item.id)" v-if="isCancel(item.end_day)">Hủy</button>
                         </td>

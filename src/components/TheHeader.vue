@@ -34,6 +34,9 @@
                             <a class="nav-link text-white" href="">Tin tức</a>
                         </li>
                         <li class="nav-item">
+                            <router-link class="nav-link text-white" :to="{ name: 'teachers' }">Giáo viên</router-link>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" href="">Giới thiệu</a>
                         </li>
                     </ul>
