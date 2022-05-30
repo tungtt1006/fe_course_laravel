@@ -71,7 +71,6 @@
 import { categoryApi } from '@/api/category.js'
 import { authApi } from '@/api/auth.js'
 import { mapGetters, mapActions } from 'vuex'
-import { common } from '@/util/util.js'
 
 export default {
     data() {
@@ -110,7 +109,11 @@ export default {
             try {
                 this.setUser({})
                 await authApi.logout()
-                common.notify('Đăng xuất thành công!')
+                this.$notify({
+                    group: 'foo',
+                    title: 'Thông báo mới',
+                    text: '<h5>Đăng xuất thành công!</h5>'
+                })
                 const routes = [
                     process.env.VUE_APP_URL + '/schedule',
                     process.env.VUE_APP_URL + '/profile',

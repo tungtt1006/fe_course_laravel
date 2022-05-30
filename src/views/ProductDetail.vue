@@ -99,7 +99,6 @@
 <script>
 import { productApi } from '@/api/product.js'
 import { mapGetters } from 'vuex'
-import { common } from '@/util/util.js'
 
 export default {
     data() {
@@ -126,12 +125,20 @@ export default {
         const paramsString = new URL(window.location.href.replace('/#', ''))
         const searchParams = new URLSearchParams(paramsString.search)
         if (searchParams.has('status') && searchParams.get('status') === 'success') {
-            common.notify('Bạn đă đăng kí thành công!')
+            this.$notify({
+                group: 'foo',
+                title: 'Thông báo mới',
+                text: '<h5>Bạn đă đăng kí thành công!</h5>'
+            })
             productApi.stripeWebhook({
                 class_id: searchParams.get('class'),
             })
         } else if (searchParams.has('status') && searchParams.get('status') === 'fail') {
-            common.notify('Bạn đăng kí chưa thành công!')
+            this.$notify({
+                group: 'error',
+                title: 'Thông báo mới',
+                text: '<h5>Bạn đăng kí chưa thành công!</h5>'
+            })
         }
 
         this.getProduct()

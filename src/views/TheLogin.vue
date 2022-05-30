@@ -52,7 +52,7 @@
 <script>
 import { authApi } from '@/api/auth.js'
 import { mapActions } from 'vuex'
-import { validate, common } from '@/util/util.js'
+import { validate } from '@/util/util.js'
 
 export default {
     data() {
@@ -93,7 +93,11 @@ export default {
                     let res = response.data
                     self.isFail = false
                     self.isSuccess = true
-                    common.notify('Đăng nhập thành công!')
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Thông báo mới',
+                        text: '<h5>Đăng nhập thành công!</h5>'
+                    })
                     if (localStorage.getItem('login')) {
                         localStorage.removeItem('login')
                     }
