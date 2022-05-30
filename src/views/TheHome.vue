@@ -1,8 +1,11 @@
 <template>
-    <div class="pb-5">
+    <div class="pb-4">
         <Banner />
         <ProductList :products="hightlightProducts" class="mt-5" />
         <ProductList :products="newestProducts" class="mt-5" />
+
+        <CategoryList />
+
         <FounderList />
     </div>
 </template>
@@ -11,13 +14,15 @@
 import Banner from '@/components/TheBanner.vue'
 import FounderList from '@/components/FounderList.vue'
 import ProductList from '@/components/Product/ProductList.vue'
+import CategoryList from '@/components/CategoryList.vue'
 import { productApi } from '@/api/product.js'
 
 export default {
     components: {
         Banner,
         ProductList,
-        FounderList
+        FounderList,
+        CategoryList,
     },
     data() {
         return {
@@ -63,76 +68,66 @@ export default {
 </script>
 
 <style scoped>
-#demo{
-    background: linear-gradient(112deg, #ffffff 50%, antiquewhite 50%);
-    margin: auto;
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
 }
-.carousel-caption {
-    position: initial;
-    z-index: 10;
-    padding: 5rem 8rem;
-    color: rgba(78, 77, 77, 0.856);
-    text-align: center;
-    font-size: 1.2rem;
-    font-style: italic;
-    font-weight: bold;
-    line-height: 2rem;
-}
-@media(max-width:767px){
-    .carousel-caption {
-        position: initial;
-        z-index: 10;
-        padding: 3rem 2rem;
-        color: rgba(78, 77, 77, 0.856);
-        text-align: center;
-        font-size: 0.7rem;
-        font-style: italic;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-}
-.carousel-caption img{
-    width: 6rem;
-    border-radius: 5rem;
-    margin-top: 2rem;
-}
-@media(max-width:767px){
-    .carousel-caption img{
-        width: 4rem;
-        border-radius: 4rem;
-        margin-top: 1rem;
-    }
-}
-#image-caption{
-    font-style: normal;
-    font-size: 1rem;
-    margin-top: 0.5rem;
-}
-@media(max-width:767px){
-    #image-caption{
-        font-style: normal;
-        font-size: 0.6rem;
-        margin-top: 0.5rem;
-    }
-}
-i{
-    background-color: rgb(223, 56, 89);
-    padding: 1.4rem;
-}
-@media(max-width:767px){
-    i{
-        padding: 0.8rem;
-    }
-}
-.carousel-control-prev{
-    justify-content: flex-start;
+.l-bg-cherry {
+    background: linear-gradient(to right, #493240, #f09) !important;
+    color: #fff;
 }
 
-.carousel-control-next {
-    justify-content: flex-end;
+.l-bg-blue-dark {
+    background: linear-gradient(to right, #373b44, #4286f4) !important;
+    color: #fff;
 }
-.carousel-control-prev,.carousel-control-next{
-    transition: none;
-    opacity: unset;
+
+.l-bg-green-dark {
+    background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+    color: #fff;
+}
+
+.l-bg-orange-dark {
+    background: linear-gradient(to right, #a86008, #ffba56) !important;
+    color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+
+.l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+}
+
+.l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
 }
 </style>
