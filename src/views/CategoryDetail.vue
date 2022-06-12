@@ -46,15 +46,15 @@
                 :to="{ name: 'category', params: { id: item.id } }"
                 id="another-category"
             >
-                <img src="" class="card-img-top" alt="...">
+                <img :src="item.photoUrl" class="card-img-top border" alt="...">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-10">
-                            <span class="card-title">{{ item.name }}</span>
+                        <div class="col-10">
+                            <span class="card-title fs-5">{{ item.name }}</span>
                         </div>
-                        <!-- <div class="col-md-2">
-                            <font-awesome-icon :icon="arrowRight" size="lg" font-weight="100" />
-                        </div> -->
+                        <div class="col-md-2">
+                            <i class="fa fa-arrow-right fs-5" aria-hidden="true"></i>
+                        </div>
                     </div>
                 </div>
             </router-link>

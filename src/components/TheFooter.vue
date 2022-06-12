@@ -13,12 +13,20 @@
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-                    <h6 class="text-uppercase font-weight-bold mb-4">Shop</h6>
+                    <h6 class="text-uppercase font-weight-bold mb-4">Nội dung</h6>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="#" class="text-muted">For Women</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted">For Men</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted">Stores</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted">Our Blog</a></li>
+                        <li class="mb-2">
+                            <router-link :to="{ name: 'home' }" class="text-muted">
+                                Trang chủ
+                            </router-link>
+                        </li>
+                        <li class="mb-2"><a href="#" class="text-muted">Tin tức</a></li>
+                        <li class="mb-2">
+                            <router-link :to="{ name: 'teachers' }" class="text-muted">
+                                Giáo viên
+                            </router-link>
+                        </li>
+                        <li class="mb-2"><a href="#" class="text-muted">Giới thiệu</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
