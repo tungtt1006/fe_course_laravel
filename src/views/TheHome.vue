@@ -50,17 +50,18 @@ export default {
     },
     created() {
         productApi
-            .getProducts('hightlight')
+            .getHotProducts()
             .then(response => {
                 this.hightlightProducts = response.data
                 this.hightlightProducts.title = "Khóa học nổi bật"
             })
             .catch(error => console.log(error))
         productApi
-            .getProducts('newest')
+            .getNewestProducts()
             .then(response => {
-                this.newestProducts = response.data
+                this.newestProducts = response.data.data
                 this.newestProducts.title = "Khóa học mới nhất"
+                this.newestProducts.seeAll = true
             })
             .catch(error => console.log(error))
     }

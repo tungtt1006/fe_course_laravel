@@ -1,8 +1,11 @@
 import { coreApi } from './api.js'
 
 export const productApi = {
-    getProducts(type = '') {
-        return coreApi.get('products?type=' + type)
+    getHotProducts() {
+        return coreApi.get('products/hot')
+    },
+    getNewestProducts(pageSize = 4) {
+        return coreApi.get('products/newest?page_size=' + pageSize)
     },
     getCategoryProducts(categoryId, type, order) {
         return coreApi.get('categories/' + categoryId + '/products?type=' + type + '&order=' + order)
