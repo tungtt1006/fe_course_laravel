@@ -3,7 +3,7 @@
         <div class="bg-c-lite-green rounded mt-3">
             <div class="p-1 text-center text-white">
                 <div class="mb-2">
-                    <img src="https://img.icons8.com/bubbles/100/000000/user.png" alt="User-Profile-Image">
+                    <img :src="profile.photoUrl" alt="User-Profile-Image">
                 </div>
                 <h3 class="fw-bolder">{{ profile.name }}</h3>
                 <p class="fs-4 mb-3">Học viên</p>

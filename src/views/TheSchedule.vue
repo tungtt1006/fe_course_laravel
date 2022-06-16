@@ -169,7 +169,11 @@ export default {
                 if (this.theClass && this.theClass.id === id) {
                     this.theClass = null
                 }
-                alert('Hủy lớp thành công')
+                this.$notify({
+                    group: 'foo',
+                    title: 'Thông báo mới',
+                    text: '<h5>Bạn đă hủy lớp thành công. Xác nhận đã được gửi vào hòm thư.</h5>'
+                })
             } catch(err) {
                 alert(err.response.data.message)
             }
