@@ -24,7 +24,14 @@
                             <span class="badge rounded-pill bg-danger" v-else>Chưa duyệt</span>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-danger" @click="confirmCancel(item.id)" v-if="isCancel(item.end_day)">Hủy</button>
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-danger"
+                                @click="confirmCancel(item.id)"
+                                v-if="isCancel(item.end_day)"
+                            >
+                                Hủy
+                            </button>
                         </td>
                     </tr>
                 </tbody>

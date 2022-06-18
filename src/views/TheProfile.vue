@@ -111,6 +111,7 @@
 
 <script>
 import { userApi } from '@/api/user.js'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
@@ -124,6 +125,7 @@ export default {
         this.getUser()
     },
     methods: {
+        ...mapActions(['setUser']),
         async getUser() {
             const res = await userApi.getUser()
             this.profile = res.data.data
@@ -167,6 +169,17 @@ export default {
                 self.profile.phone = this.edit.phone
                 self.profile.gender = this.edit.gender
                 self.profile.address = this.edit.address
+
+                let login = JSON.parse(localStorage.getItem('login'))
+                if (login) {
+                    localStorage.removeItem('login')
+                    localStorage.setItem('login', JSON.stringify({
+                        email: self.profile.email,
+                        token: login.token
+                    }))
+                    this.setUser({ email: self.profile.email })
+                }
+
                 document.getElementById('btn-close').click();
             } catch(err) {
                 const errors = err.response.data.errors
