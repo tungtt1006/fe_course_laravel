@@ -12,8 +12,13 @@
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text product-item-description">{{ item.description }}</p>
-                <p class="mt-5 mb-0 text-decoration-line-through text-muted">{{ formatNumber(item.price) }} VND</p>
-                <p class="mt-0 fs-5 fw-bolder text-success">{{ discountPrice }} VND</p>
+                <div v-if="item.discount">
+                    <p class="mt-5 mb-0 text-decoration-line-through text-muted">{{ formatNumber(item.price) }} VND</p>
+                    <p class="mt-0 fs-5 fw-bolder text-success">{{ discountPrice }} VND</p>
+                </div>
+                <div v-else>
+                    <p class="mt-5 fs-4 pt-3 fw-bolder text-success">{{ formatNumber(item.price) }} VND</p>
+                </div>
             </div>
         </router-link>
     </div>

@@ -15,8 +15,8 @@
                     <div class="row g-0">
                         <div class="col-4 d-flex align-items-center ps-3">
                             <img
-                                src="http://localhost:8000/storage/img/avatar/avatar.jpg"
-                                class="rounded-circle img-thumbnail w-75"
+                                :src="item.photo_url"
+                                class="rounded-circle img-thumbnail w-75 h-75"
                                 alt="Fail avatar"
                             >
                         </div>
